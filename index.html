@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-<html see="" lang="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walraven Pacifyre® Sealant Consumption Calculator | Walraven</title>
   <style>
     :root {
-      /* Walraven brand green sampled from walraven.com/int logo background */
       --wr-green: #006c4f;
-      --wr-red: #e60000;
       --wr-bg: #f5f5f5;
       --wr-text: #333;
       --wr-muted: #666;
       --wr-border: #e0e0e0;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: var(--wr-bg);
       min-height: 100vh;
-      padding: 0;
       color: var(--wr-text);
     }
 
     .top-bar {
       background: var(--wr-green);
-      color: white;
+      color: #fff;
       padding: 8px 20px;
       font-size: 13px;
       text-align: right;
@@ -40,7 +33,7 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      background: white;
+      background: #fff;
     }
 
     .header {
@@ -51,7 +44,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      color: white;
+      color: #fff;
     }
 
     .logo-area {
@@ -61,10 +54,7 @@
       min-width: 0;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-    }
+    .logo { display: flex; align-items: center; }
 
     .walraven-logo {
       height: 32px;
@@ -80,9 +70,9 @@
     }
 
     .app-title {
-      color: white;
+      color: #fff;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -104,52 +94,6 @@
       white-space: nowrap;
     }
 
-    .lock-icon {
-      display: inline-flex;
-      vertical-align: middle;
-      margin-right: 8px;
-      color: var(--wr-green);
-    }
-
-    .lock-icon svg {
-      display: block;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: 700;
-      color: var(--wr-text);
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    /* override for depth label to align icon + text */
-    #labelDepthText {
-      vertical-align: middle;
-    }
-
-    /* keep original language-selector label declaration below */
-    .language-selector label {
-      font-size: 12px;
-      opacity: 0.9;
-      white-space: nowrap;
-    }
-
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--wr-green);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 8px 34px 8px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      position: relative;
-    }
-
     .select-wrap {
       position: relative;
       display: inline-flex;
@@ -165,9 +109,23 @@
       font-size: 12px;
     }
 
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--wr-green);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 8px 34px 8px 12px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
     .hero {
       background: linear-gradient(135deg, var(--wr-green) 0%, #028c66 100%);
-      color: white;
+      color: #fff;
       padding: 40px 28px;
       text-align: center;
     }
@@ -175,7 +133,7 @@
     .hero h1 {
       font-size: 2.1em;
       margin-bottom: 10px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .hero p {
@@ -187,51 +145,45 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      padding: 0;
     }
 
-    .section {
-      padding: 36px 28px;
-    }
+    .section { padding: 36px 28px; }
 
     .section.inputs {
       background: #f9f9f9;
       border-right: 1px solid var(--wr-border);
     }
 
-    .section.results {
-      background: white;
-    }
+    .section.results { background: #fff; }
 
     .section h2 {
       color: var(--wr-green);
       margin-bottom: 22px;
       font-size: 1.45em;
-      font-weight: 700;
+      font-weight: 800;
       padding-bottom: 12px;
-      border-bottom: 2px solid #006c4f;
+      border-bottom: 2px solid var(--wr-green);
     }
 
-    .form-group {
-      margin-bottom: 18px;
-    }
+    .form-group { margin-bottom: 18px; }
 
     .form-group label {
       display: block;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--wr-text);
       margin-bottom: 8px;
       font-size: 14px;
     }
 
-    .form-group input[type='number'] {
+    .form-group input[type='number'],
+    .form-group input[type='text'] {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #d0d0d0;
       border-radius: 6px;
       font-size: 14px;
       transition: all 0.2s;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .form-group input[type='number']:focus {
@@ -263,13 +215,13 @@
     .radio-option label {
       cursor: pointer;
       margin: 0;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 14px;
       color: var(--wr-text);
     }
 
     .subsection {
-      background: white;
+      background: #fff;
       padding: 18px;
       border-radius: 10px;
       margin-bottom: 12px;
@@ -286,12 +238,10 @@
       color: var(--wr-muted);
       font-size: 15px;
       margin-bottom: 14px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
-    .subsection.active h3 {
-      color: var(--wr-green);
-    }
+    .subsection.active h3 { color: var(--wr-green); }
 
     .result-item {
       background: #f9f9f9;
@@ -315,12 +265,12 @@
       font-size: 13px;
       color: var(--wr-muted);
       margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .result-value {
       font-size: 2em;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--wr-green);
     }
 
@@ -328,7 +278,7 @@
       font-size: 0.6em;
       color: var(--wr-muted);
       margin-left: 6px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .info-box {
@@ -342,15 +292,67 @@
       line-height: 1.5;
     }
 
-    .info-box strong {
-      color: #cc8800;
+    .info-box strong { color: #cc8800; }
+
+    .toggle-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 108, 79, 0.35);
+      background: rgba(0, 108, 79, 0.08);
+      color: var(--wr-green);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.05s ease, background 0.2s ease;
     }
+
+    .toggle-btn:hover { background: rgba(0, 108, 79, 0.12); }
+    .toggle-btn:active { transform: translateY(1px); }
+
+    .details-panel {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--wr-border);
+    }
+
+    .details-title {
+      font-weight: 900;
+      color: var(--wr-green);
+      margin-bottom: 10px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .hidden { display: none; }
+
+    .lock-icon {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-right: 8px;
+      color: var(--wr-green);
+    }
+
+    .lock-icon svg { display: block; }
+
+    .warn-box {
+      background: #fff5f0;
+      border: 1px solid #ffb199;
+      border-left: 4px solid #ff6b3d;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #7a2a14;
+    }
+
+    .warn-box strong { color: #c23a1a; }
 
     .footer {
       background: var(--wr-green);
-      color: white;
+      color: #fff;
       padding: 26px 28px;
-      text-align: center;
     }
 
     .footer-content {
@@ -363,37 +365,19 @@
       grid-template-columns: 1fr 1fr;
       gap: 18px;
       align-items: start;
-      text-align: left;
     }
+
+    .footer-left { text-align: left; }
+    .footer-right { text-align: right; }
 
     .footer-left p {
       margin: 6px 0;
-    }
-
-    .footer-right {
-      text-align: right;
-    }
-
-    .footer-right .footer-links {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-    }
-
-    .footer p {
-      margin: 8px 0;
       opacity: 0.92;
       font-size: 14px;
     }
 
-    .footer-links {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.22);
-    }
-
     .footer-links a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       margin: 0 14px;
       font-size: 13px;
@@ -406,66 +390,8 @@
       text-decoration: underline;
     }
 
-    .toggle-btn {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 108, 79, 0.35);
-      background: rgba(0, 108, 79, 0.08);
-      color: var(--wr-green);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.05s ease, background 0.2s ease;
-    }
-
-    .toggle-btn:hover {
-      background: rgba(0, 108, 79, 0.12);
-    }
-
-    .toggle-btn:active {
-      transform: translateY(1px);
-    }
-
-    .details-panel {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid var(--wr-border);
-    }
-
-    .details-title {
-      font-weight: 800;
-      color: var(--wr-green);
-      margin-bottom: 10px;
-      font-size: 14px;
-      opacity: 0.95;
-    }
-
-    .hidden {
-      display: none;
-    }
-
     @media (max-width: 768px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-right {
-        text-align: left;
-      }
-
-      .footer-right .footer-links {
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid rgba(255, 255, 255, 0.22);
-      }
-
-      .content {
-        grid-template-columns: 1fr;
-      }
-      .content {
-        grid-template-columns: 1fr;
-      }
+      .content { grid-template-columns: 1fr; }
 
       .section.inputs {
         border-right: none;
@@ -477,23 +403,19 @@
         align-items: flex-start;
       }
 
-      .logo-area {
-        width: 100%;
-      }
-
-      .divider {
-        display: none;
-      }
+      .logo-area { width: 100%; }
+      .divider { display: none; }
 
       .language-selector {
         width: 100%;
         justify-content: space-between;
       }
 
-      .select-wrap,
-      select {
-        width: 100%;
-      }
+      .select-wrap, select { width: 100%; }
+
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-right { text-align: left; }
+      .footer-links { margin-top: 12px; }
     }
   </style>
 </head>
@@ -506,7 +428,11 @@
     <div class="header">
       <div class="logo-area">
         <div class="logo">
-          <img src="https://www.walraven.com/de/wp-content/themes/walraven/assets/images/logo.svg" alt="Walraven" class="walraven-logo" />
+          <img
+            src="https://www.walraven.com/de/wp-content/themes/walraven/assets/images/logo.svg"
+            alt="Walraven"
+            class="walraven-logo"
+          />
         </div>
         <div class="divider"></div>
         <div class="app-title" id="appTitle">Walraven Pacifyre® Calculator</div>
@@ -553,12 +479,21 @@
           <label>
             <span class="lock-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="16" height="16" focusable="false" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M17 8h-1V6a4 4 0 10-8 0v2H7a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2v-9a2 2 0 00-2-2zm-7-2a2 2 0 114 0v2h-4V6zm7 13H7v-9h10v9z"/>
+                <path
+                  fill="currentColor"
+                  d="M17 8h-1V6a4 4 0 10-8 0v2H7a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2v-9a2 2 0 00-2-2zm-7-2a2 2 0 114 0v2h-4V6zm7 13H7v-9h10v9z"
+                />
               </svg>
             </span>
             <span id="labelDepthText">Fill Depth (fixed: A = 10 mm, G = 25 mm)</span>
           </label>
-          <input type="text" id="depth" readonly disabled style="background: #e9ecef; font-weight:700; color: var(--wr-green);" />
+          <input
+            type="text"
+            id="depth"
+            readonly
+            disabled
+            style="background: #e9ecef; font-weight: 800; color: var(--wr-green);"
+          />
         </div>
 
         <div class="form-group">
@@ -637,7 +572,6 @@
       <div class="section results">
         <h2 id="resultsTitle">Calculation Results</h2>
 
-        <!-- Always visible: cartridges only -->
         <div class="result-item highlight" style="margin-top: 6px;">
           <div class="result-label" id="labelCartridges">📦 Number of Cartridges (300 ml)</div>
           <div class="result-value" id="cartridges">0<span class="result-unit">pcs</span></div>
@@ -647,7 +581,6 @@
           <span id="toggleDetailsText">Show calculation steps</span>
         </button>
 
-        <!-- Hidden details (calculation steps) -->
         <div id="detailsPanel" class="details-panel hidden" aria-hidden="true">
           <div class="details-title" id="detailsTitle">Calculation steps</div>
 
@@ -680,6 +613,13 @@
             <div class="result-item">
               <div class="result-label" id="labelOccupiedVolume">Pipe + insulation volume</div>
               <div class="result-value" id="occupiedVolume">0<span class="result-unit">ml</span></div>
+            </div>
+
+            <div class="warn-box hidden" id="rectWarning" role="alert" aria-live="polite">
+              <strong id="rectWarningTitle">⚠️ Warning:</strong>
+              <span id="rectWarningText">
+                Pipe + insulation does not fit into the opening (occupied volume exceeds opening volume). Sealant volume is set to 0.
+              </span>
             </div>
           </div>
 
@@ -764,10 +704,12 @@
         labelAnnularArea: 'Annular Area',
 
         calcTitleRectangular: 'Intermediate Calculations (rectangular)',
-        labelOuterWidth: 'Outer Width with Fill',
-        labelOuterHeight: 'Outer Height with Fill',
         labelOpeningVolume: 'Opening volume (W×H×depth)',
         labelOccupiedVolume: 'Pipe + insulation volume',
+
+        rectWarningTitle: '⚠️ Warning:',
+        rectWarningText:
+          'Pipe + insulation does not fit into the opening (occupied volume exceeds opening volume). Sealant volume is set to 0.',
 
         labelVolumeOne: 'Volume per Penetration',
         labelTotalConsumption: '✅ Total Sealant Consumption',
@@ -832,10 +774,12 @@
         labelAnnularArea: 'Plocha mezikruží',
 
         calcTitleRectangular: 'Mezivýpočty (obdélníkový)',
-        labelOuterWidth: 'Vnější šířka s výplní',
-        labelOuterHeight: 'Vnější výška s výplní',
         labelOpeningVolume: 'Objem otvoru (Š×V×hloubka)',
         labelOccupiedVolume: 'Objem potrubí + izolace',
+
+        rectWarningTitle: '⚠️ Upozornění:',
+        rectWarningText:
+          'Potrubí + izolace se nevejde do otvoru (objem potrubí s izolací je větší než objem otvoru). Spotřeba tmelu je nastavena na 0.',
 
         labelVolumeOne: 'Objem jednoho prostupu',
         labelTotalConsumption: '✅ Celková spotřeba tmelu',
@@ -900,10 +844,12 @@
         labelAnnularArea: 'Pole pierścienia',
 
         calcTitleRectangular: 'Obliczenia pośrednie (prostokątny)',
-        labelOuterWidth: 'Szerokość zewnętrzna z wypełnieniem',
-        labelOuterHeight: 'Wysokość zewnętrzna z wypełnieniem',
         labelOpeningVolume: 'Objętość otworu (S×W×głęb.)',
         labelOccupiedVolume: 'Objętość rury + izolacji',
+
+        rectWarningTitle: '⚠️ Ostrzeżenie:',
+        rectWarningText:
+          'Rura + izolacja nie mieszczą się w otworze (objętość rury z izolacją jest większa niż objętość otworu). Zużycie uszczelniacza ustawiono na 0.',
 
         labelVolumeOne: 'Objętość na jedno przejście',
         labelTotalConsumption: '✅ Całkowite zużycie uszczelniacza',
@@ -968,10 +914,12 @@
         labelAnnularArea: 'Ringoppervlak',
 
         calcTitleRectangular: 'Tussenberekeningen (rechthoekig)',
-        labelOuterWidth: 'Buitenbreedte met vulling',
-        labelOuterHeight: 'Buitenhoogte met vulling',
         labelOpeningVolume: 'Openingsvolume (B×H×diepte)',
         labelOccupiedVolume: 'Volume buis + isolatie',
+
+        rectWarningTitle: '⚠️ Waarschuwing:',
+        rectWarningText:
+          'Buis + isolatie passen niet in de opening (volume buis met isolatie is groter dan openingsvolume). Kitvolume is ingesteld op 0.',
 
         labelVolumeOne: 'Volume per doorvoer',
         labelTotalConsumption: '✅ Totaal kitverbruik',
@@ -998,248 +946,313 @@
 
     let currentLang = 'en';
 
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function setText(id, value) {
+      const el = $(id);
+      if (!el) return false;
+      el.textContent = value;
+      return true;
+    }
+
+    function setHtml(id, value) {
+      const el = $(id);
+      if (!el) return false;
+      el.innerHTML = value;
+      return true;
+    }
+
     function setLanguage(lang) {
       currentLang = translations[lang] ? lang : 'en';
       const t = translations[currentLang];
 
       document.documentElement.lang = currentLang;
 
-      // Labels in header
-      document.getElementById('langLabel').textContent = t.langLabel;
+      // Header
+      setText('langLabel', t.langLabel);
+      setText('topBarText', t.topBarText);
+      setText('appTitle', t.appTitle);
+      setText('heroTitle', t.heroTitle);
+      setText('heroSubtitle', t.heroSubtitle);
 
-      // Top + hero + sections
-      document.getElementById('topBarText').textContent = t.topBarText;
-      document.getElementById('appTitle').textContent = t.appTitle;
-      document.getElementById('heroTitle').textContent = t.heroTitle;
-      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
-      document.getElementById('inputsTitle').textContent = t.inputsTitle;
-      document.getElementById('resultsTitle').textContent = t.resultsTitle;
+      // Sections
+      setText('inputsTitle', t.inputsTitle);
+      setText('resultsTitle', t.resultsTitle);
 
       // Inputs
-      document.getElementById('labelSealantType').textContent = t.labelSealantType;
-      document.getElementById('sealantALabel').textContent = t.sealantALabel;
-      document.getElementById('sealantGLabel').textContent = t.sealantGLabel;
+      setText('labelSealantType', t.labelSealantType);
+      setText('sealantALabel', t.sealantALabel);
+      setText('sealantGLabel', t.sealantGLabel);
+      setText('labelDepthText', t.labelDepth);
 
-      document.getElementById('labelDepthText').textContent = t.labelDepth;
+      setText('labelOpeningType', t.labelOpeningType);
+      setText('labelCircular', t.labelCircular);
+      setText('labelRectangular', t.labelRectangular);
 
-      document.getElementById('labelOpeningType').textContent = t.labelOpeningType;
-      document.getElementById('labelCircular').textContent = t.labelCircular;
-      document.getElementById('labelRectangular').textContent = t.labelRectangular;
+      setText('titleCircular', t.titleCircular);
+      setText('labelPipeDiameter', t.labelPipeDiameter);
+      setText('labelInsulation', t.labelInsulation);
+      setText('labelAnnularGap', t.labelAnnularGap);
 
-      document.getElementById('titleCircular').textContent = t.titleCircular;
-      document.getElementById('labelPipeDiameter').textContent = t.labelPipeDiameter;
-      document.getElementById('labelInsulation').textContent = t.labelInsulation;
-      document.getElementById('labelAnnularGap').textContent = t.labelAnnularGap;
+      setText('titleRectangular', t.titleRectangular);
+      setText('labelOpeningWidth', t.labelOpeningWidth);
+      setText('labelOpeningHeight', t.labelOpeningHeight);
+      setText('labelPipeDiameterRect', t.labelPipeDiameterRect);
+      setText('labelInsulationRect', t.labelInsulationRect);
 
-      document.getElementById('titleRectangular').textContent = t.titleRectangular;
-      document.getElementById('labelOpeningWidth').textContent = t.labelOpeningWidth;
-      document.getElementById('labelOpeningHeight').textContent = t.labelOpeningHeight;
-      document.getElementById('labelPipeDiameterRect').textContent = t.labelPipeDiameterRect;
-      document.getElementById('labelInsulationRect').textContent = t.labelInsulationRect;
-
-      document.getElementById('labelSealType').textContent = t.labelSealType;
-      document.getElementById('labelSingle').textContent = t.labelSingle;
-      document.getElementById('labelDouble').textContent = t.labelDouble;
-
-      document.getElementById('labelCount').textContent = t.labelCount;
+      setText('labelSealType', t.labelSealType);
+      setText('labelDouble', t.labelDouble);
+      setText('labelSingle', t.labelSingle);
+      setText('labelCount', t.labelCount);
 
       // Results labels
-      document.getElementById('calcTitleCircular').textContent = t.calcTitleCircular;
-      document.getElementById('labelD2').textContent = t.labelD2;
-      document.getElementById('labelD3').textContent = t.labelD3;
-      document.getElementById('labelAnnularArea').textContent = t.labelAnnularArea;
+      setText('calcTitleCircular', t.calcTitleCircular);
+      setText('labelD2', t.labelD2);
+      setText('labelD3', t.labelD3);
+      setText('labelAnnularArea', t.labelAnnularArea);
 
-      document.getElementById('calcTitleRectangular').textContent = t.calcTitleRectangular;
-      document.getElementById('labelOuterWidth').textContent = t.labelOuterWidth;
-      document.getElementById('labelOuterHeight').textContent = t.labelOuterHeight;
-      document.getElementById('labelOpeningVolume').textContent = t.labelOpeningVolume;
-      document.getElementById('labelOccupiedVolume').textContent = t.labelOccupiedVolume;
+      setText('calcTitleRectangular', t.calcTitleRectangular);
+      setText('labelOpeningVolume', t.labelOpeningVolume);
+      setText('labelOccupiedVolume', t.labelOccupiedVolume);
 
-      document.getElementById('labelVolumeOne').textContent = t.labelVolumeOne;
-      document.getElementById('labelTotalConsumption').textContent = t.labelTotalConsumption;
-      document.getElementById('labelCartridges').textContent = t.labelCartridges;
+      setText('rectWarningTitle', t.rectWarningTitle);
+      setText('rectWarningText', t.rectWarningText);
 
-      document.getElementById('infoNote').textContent = t.infoNote;
-      document.getElementById('infoText').textContent = t.infoText;
+      setText('labelVolumeOne', t.labelVolumeOne);
+      setText('labelTotalConsumption', t.labelTotalConsumption);
+      setText('labelCartridges', t.labelCartridges);
 
-      document.getElementById('footerText').textContent = t.footerText;
-      document.getElementById('footerContact').textContent = t.footerContact;
-      document.getElementById('footerSupport').textContent = t.footerSupport;
+      setText('infoNote', t.infoNote);
+      setText('infoText', t.infoText);
 
-      // Sync dropdown
-      const sel = document.getElementById('langSelect');
-      if (sel && sel.value !== currentLang) sel.value = currentLang;
+      setText('footerText', t.footerText);
+      setText('footerContact', t.footerContact);
+      setText('footerSupport', t.footerSupport);
 
-      // Keep details UI texts in sync
-      const t2 = translations[currentLang] || translations.en;
-      const panel = document.getElementById('detailsPanel');
-      const btn = document.getElementById('toggleDetails');
-      const txt = document.getElementById('toggleDetailsText');
-      const detailsTitleEl = document.getElementById('detailsTitle');
-      if (detailsTitleEl) detailsTitleEl.textContent = t2.detailsTitle;
-      if (btn && txt) {
+      // Details UI texts
+      setText('detailsTitle', t.detailsTitle);
+      const btn = $('toggleDetails');
+      const btnText = $('toggleDetailsText');
+      if (btn && btnText) {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
-        txt.textContent = expanded ? t2.hideDetails : t2.showDetails;
+        btnText.textContent = expanded ? t.hideDetails : t.showDetails;
       }
 
-      // Recalculate details text
+      // Sync dropdown
+      const sel = $('langSelect');
+      if (sel && sel.value !== currentLang) sel.value = currentLang;
+
       calculate();
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      // Default: English as first choice
-      const sel = document.getElementById('langSelect');
-      sel.value = 'en';
-      sel.addEventListener('change', (e) => setLanguage(e.target.value));
-
-      setDepth();
-      setLanguage('en');
-
-      // Events
-      document.querySelectorAll('input[name="sealantType"]').forEach((radio) => {
-        radio.addEventListener('change', setDepth);
-      });
-
-      document.querySelectorAll('input[name="openingType"]').forEach((radio) => {
-        radio.addEventListener('change', toggleOpeningType);
-      });
-
-      document.querySelectorAll('input[type="number"]').forEach((input) => {
-        input.addEventListener('input', calculate);
-      });
-
-      document.querySelectorAll('input[name="sealType"]').forEach((radio) => {
-        radio.addEventListener('change', calculate);
-      });
-
-      // Details toggle
-      const toggleBtn = document.getElementById('toggleDetails');
-      if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
-    });
-
     function setDepth() {
-      const sealantType = document.querySelector('input[name="sealantType"]:checked').value;
+      const sealantType = document.querySelector('input[name="sealantType"]:checked')?.value || 'A';
       const depth = sealantType === 'A' ? 10 : 25;
-      document.getElementById('depth').value = depth;
+      const depthEl = $('depth');
+      if (depthEl) depthEl.value = String(depth);
       calculate();
     }
 
     function toggleOpeningType() {
-      const openingType = document.querySelector('input[name="openingType"]:checked').value;
+      const openingType = document.querySelector('input[name="openingType"]:checked')?.value || 'circular';
 
-      const circularSection = document.getElementById('circularSection');
-      const rectangularSection = document.getElementById('rectangularSection');
-      const calcCircular = document.getElementById('calcCircular');
-      const calcRectangular = document.getElementById('calcRectangular');
+      const circularSection = $('circularSection');
+      const rectangularSection = $('rectangularSection');
+      const calcCircular = $('calcCircular');
+      const calcRectangular = $('calcRectangular');
+      const warn = $('rectWarning');
+
       if (openingType === 'circular') {
-        circularSection.style.display = 'block';
-        circularSection.classList.add('active');
-        rectangularSection.style.display = 'none';
-        rectangularSection.classList.remove('active');
-        calcCircular.style.display = 'block';
-        calcRectangular.style.display = 'none';
+        if (circularSection) {
+          circularSection.style.display = 'block';
+          circularSection.classList.add('active');
+        }
+        if (rectangularSection) {
+          rectangularSection.style.display = 'none';
+          rectangularSection.classList.remove('active');
+        }
+        if (calcCircular) calcCircular.style.display = 'block';
+        if (calcRectangular) calcRectangular.style.display = 'none';
+        if (warn) warn.classList.add('hidden');
       } else {
-        circularSection.style.display = 'none';
-        circularSection.classList.remove('active');
-        rectangularSection.style.display = 'block';
-        rectangularSection.classList.add('active');
-        calcCircular.style.display = 'none';
-        calcRectangular.style.display = 'block';
+        if (circularSection) {
+          circularSection.style.display = 'none';
+          circularSection.classList.remove('active');
+        }
+        if (rectangularSection) {
+          rectangularSection.style.display = 'block';
+          rectangularSection.classList.add('active');
+        }
+        if (calcCircular) calcCircular.style.display = 'none';
+        if (calcRectangular) calcRectangular.style.display = 'block';
       }
 
       calculate();
     }
 
     function toggleDetails() {
-      const panel = document.getElementById('detailsPanel');
-      const btn = document.getElementById('toggleDetails');
-      const txt = document.getElementById('toggleDetailsText');
-      const t = translations[currentLang] || translations.en;
+      const panel = $('detailsPanel');
+      const btn = $('toggleDetails');
+      const txt = $('toggleDetailsText');
+      if (!panel || !btn || !txt) return;
 
+      const t = translations[currentLang] || translations.en;
       const isHidden = panel.classList.contains('hidden');
+
       if (isHidden) {
         panel.classList.remove('hidden');
         panel.setAttribute('aria-hidden', 'false');
         btn.setAttribute('aria-expanded', 'true');
-        if (txt) txt.textContent = t.hideDetails;
+        txt.textContent = t.hideDetails;
       } else {
         panel.classList.add('hidden');
         panel.setAttribute('aria-hidden', 'true');
         btn.setAttribute('aria-expanded', 'false');
-        if (txt) txt.textContent = t.showDetails;
+        txt.textContent = t.showDetails;
       }
+    }
+
+    function calculateCircular(depth) {
+      const pipeDiameter = parseFloat($('pipeDiameter')?.value || '0') || 0;
+      const insulation = parseFloat($('insulationThickness')?.value || '0') || 0;
+      const gap = parseFloat($('annularGap')?.value || '0') || 0;
+
+      const d2 = pipeDiameter + 2 * insulation;
+      const d3 = d2 + 2 * gap;
+      const r2 = d2 / 2;
+      const r3 = d3 / 2;
+      const annularArea = Math.PI * (r3 * r3 - r2 * r2);
+
+      setHtml('d2', `${d2.toFixed(1)}<span class="result-unit">mm</span>`);
+      setHtml('d3', `${d3.toFixed(1)}<span class="result-unit">mm</span>`);
+      setHtml('annularArea', `${annularArea.toFixed(1)}<span class="result-unit">mm²</span>`);
+
+      const volumeOneMl = (annularArea * depth) / 1000;
+      return { volumeOneMl: Math.max(0, volumeOneMl) };
+    }
+
+    function calculateRectangular(depth) {
+      const w = parseFloat($('openingWidth')?.value || '0') || 0;
+      const h = parseFloat($('openingHeight')?.value || '0') || 0;
+      const pipeD = parseFloat($('pipeDiameterRect')?.value || '0') || 0;
+      const ins = parseFloat($('insulationThicknessRect')?.value || '0') || 0;
+
+      const openingArea = w * h; // mm²
+      const openingVolMm3 = openingArea * depth; // mm³
+
+      const rOuter = Math.max(0, pipeD / 2 + ins);
+      const occupiedArea = Math.PI * rOuter * rOuter; // mm²
+      const occupiedVolMm3 = occupiedArea * depth; // mm³
+
+      const overfilled = occupiedVolMm3 > openingVolMm3;
+      const sealantVolMm3 = Math.max(0, openingVolMm3 - occupiedVolMm3);
+
+      setHtml('openingVolume', `${(openingVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`);
+      setHtml('occupiedVolume', `${(occupiedVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`);
+
+      const warn = $('rectWarning');
+      if (warn) warn.classList.toggle('hidden', !overfilled);
+
+      return { volumeOneMl: sealantVolMm3 / 1000, overfilled };
     }
 
     function calculate() {
-      const openingType = document.querySelector('input[name="openingType"]:checked').value;
-      const depth = parseFloat(document.getElementById('depth').value) || 0;
-      const sealType = document.querySelector('input[name="sealType"]:checked').value;
-      const count = parseFloat(document.getElementById('penetrationCount').value) || 0;
+      const openingType = document.querySelector('input[name="openingType"]:checked')?.value || 'circular';
+      const depth = parseFloat($('depth')?.value || '0') || 0;
+      const sealType = document.querySelector('input[name="sealType"]:checked')?.value || 'double';
+      const count = parseFloat($('penetrationCount')?.value || '0') || 0;
       const multiplier = sealType === 'double' ? 2 : 1;
 
-      let area = 0;
+      let volumeOneMl = 0;
 
       if (openingType === 'circular') {
-        const pipeDiameter = parseFloat(document.getElementById('pipeDiameter').value) || 0;
-        const insulation = parseFloat(document.getElementById('insulationThickness').value) || 0;
-        const gap = parseFloat(document.getElementById('annularGap').value) || 0;
-
-        const d2 = pipeDiameter + 2 * insulation;
-        const d3 = d2 + 2 * gap;
-        const r2 = d2 / 2;
-        const r3 = d3 / 2;
-        area = Math.PI * (r3 * r3 - r2 * r2);
-
-        document.getElementById('d2').innerHTML = `${d2.toFixed(1)}<span class="result-unit">mm</span>`;
-        document.getElementById('d3').innerHTML = `${d3.toFixed(1)}<span class="result-unit">mm</span>`;
-        document.getElementById('annularArea').innerHTML = `${area.toFixed(1)}<span class="result-unit">mm²</span>`;
+        const res = calculateCircular(depth);
+        volumeOneMl = res.volumeOneMl;
       } else {
-        const w = parseFloat(document.getElementById('openingWidth').value) || 0;
-        const h = parseFloat(document.getElementById('openingHeight').value) || 0;
-        const pipeD = parseFloat(document.getElementById('pipeDiameterRect').value) || 0;
-        const ins = parseFloat(document.getElementById('insulationThicknessRect').value) || 0;
-
-        // Rectangular opening: sealant volume = opening volume - (pipe + insulation) volume
-        // occupied area is the circle with outer radius (pipe/2 + insulation)
-        const openingArea = w * h; // mm²
-        const openingVolMm3 = openingArea * depth; // mm³
-
-        const rOuter = Math.max(0, pipeD / 2 + ins);
-        const occupiedArea = Math.PI * rOuter * rOuter; // mm²
-        const occupiedVolMm3 = occupiedArea * depth; // mm³
-
-        const sealantVolMm3 = Math.max(0, openingVolMm3 - occupiedVolMm3);
-        area = sealantVolMm3 / Math.max(1, depth); // keep 'area' meaningful for later conversion
-
-        // Show intermediate volumes in ml
-        document.getElementById('openingVolume').innerHTML = `${(openingVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`;
-        document.getElementById('occupiedVolume').innerHTML = `${(occupiedVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`;
-
-        // Override volumeOne further down using sealantVolMm3
-        // (set here via a hidden variable on window)
-        window.__rectSealantVolMm3 = sealantVolMm3;
+        const res = calculateRectangular(depth);
+        volumeOneMl = res.volumeOneMl;
       }
 
-      let volumeOne;
-      if (openingType === 'rectangular' && typeof window.__rectSealantVolMm3 === 'number') {
-        volumeOne = window.__rectSealantVolMm3 / 1000; // mm³ -> ml
-      } else {
-        volumeOne = (area * depth) / 1000; // mm³ -> ml
-      }
-      // clean up
-      delete window.__rectSealantVolMm3;
-      const total = volumeOne * count * multiplier;
-      const cartridges = Math.ceil(total / 300);
+      const totalMl = Math.max(0, volumeOneMl * count * multiplier);
+      const cartridges = Math.ceil(totalMl / 300);
 
-      document.getElementById('volumeOne').innerHTML = `${volumeOne.toFixed(1)}<span class="result-unit">ml</span>`;
-      document.getElementById('totalConsumption').innerHTML = `${total.toFixed(1)}<span class="result-unit">ml</span>`;
+      setHtml('volumeOne', `${volumeOneMl.toFixed(1)}<span class="result-unit">ml</span>`);
+      setHtml('totalConsumption', `${totalMl.toFixed(1)}<span class="result-unit">ml</span>`);
 
       const t = translations[currentLang] || translations.en;
-      document.getElementById('cartridges').innerHTML = `${cartridges}<span class="result-unit">${t.unitsPieces}</span>`;
+      setHtml('cartridges', `${cartridges}<span class="result-unit">${t.unitsPieces}</span>`);
 
-      const detail = t.calcDetail(count, volumeOne.toFixed(1), sealType);
-      document.getElementById('calcDetail').textContent = ` ${detail}`;
+      const detail = t.calcDetail(count, volumeOneMl.toFixed(1), sealType);
+      setText('calcDetail', ` ${detail}`);
     }
+
+    // Basic self-tests (console only)
+    function runSelfTests() {
+      console.group('Walraven Pacifyre® calculator self-tests');
+
+      // Test 1: circular should be non-negative
+      const circ = calculateCircular(10);
+      console.assert(circ.volumeOneMl >= 0, 'Circular volume should be >= 0');
+
+      // Test 2: rectangular overfill should set sealant volume to 0
+      // Simulate extreme: tiny opening, big pipe+ins
+      const wEl = $('openingWidth');
+      const hEl = $('openingHeight');
+      const pEl = $('pipeDiameterRect');
+      const iEl = $('insulationThicknessRect');
+      const dEl = $('depth');
+
+      if (wEl && hEl && pEl && iEl && dEl) {
+        const old = { w: wEl.value, h: hEl.value, p: pEl.value, i: iEl.value, d: dEl.value };
+        wEl.value = '50';
+        hEl.value = '50';
+        pEl.value = '150';
+        iEl.value = '20';
+        dEl.value = '10';
+
+        const rect = calculateRectangular(10);
+        console.assert(rect.overfilled === true, 'Rectangular should be overfilled in this scenario');
+        console.assert(rect.volumeOneMl === 0, 'Rectangular volume should be 0 when overfilled');
+
+        // restore
+        wEl.value = old.w;
+        hEl.value = old.h;
+        pEl.value = old.p;
+        iEl.value = old.i;
+        dEl.value = old.d;
+      } else {
+        console.warn('Self-test skipped: some rectangular inputs not found.');
+      }
+
+      console.groupEnd();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const langSelect = $('langSelect');
+      if (langSelect) {
+        langSelect.value = 'en';
+        langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
+      }
+
+      document.querySelectorAll('input[name="sealantType"]').forEach((r) => r.addEventListener('change', setDepth));
+      document.querySelectorAll('input[name="openingType"]').forEach((r) => r.addEventListener('change', toggleOpeningType));
+      document.querySelectorAll('input[name="sealType"]').forEach((r) => r.addEventListener('change', calculate));
+      document.querySelectorAll('input[type="number"]').forEach((i) => i.addEventListener('input', calculate));
+
+      const toggleBtn = $('toggleDetails');
+      if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
+
+      // Initialize
+      setDepth();
+      setLanguage('en');
+      toggleOpeningType();
+      calculate();
+
+      // Console tests
+      runSelfTests();
+    });
   </script>
 </body>
 </html>
