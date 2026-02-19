@@ -444,6 +444,7 @@
           <select id="langSelect" aria-label="Language selector">
             <option value="en">🇬🇧 English</option>
             <option value="cs">🇨🇿 Čeština</option>
+            <option value="sk">🇸🇰 Slovenčina</option>
             <option value="pl">🇵🇱 Polski</option>
             <option value="nl">🇳🇱 Nederlands</option>
           </select>
@@ -800,6 +801,76 @@
         calcDetail: (count, perOneMl, sealType) => {
           const mult = sealType === 'double' ? ' × 2 (oboustranná)' : ' (jednostranná)';
           return `${count} prostupů × ${perOneMl} ml${mult}`;
+        },
+      },
+
+      sk: {
+        langLabel: 'Jazyk',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Kalkulačka Walraven Pacifyre®',
+        heroTitle: '🔥 Kalkulačka spotreby tmelu Walraven Pacifyre®',
+        heroSubtitle: 'Výpočet spotreby protipožiarneho tmelu pre prestupy stenami a stropmi',
+        inputsTitle: 'Vstupné údaje',
+        resultsTitle: 'Výsledky výpočtu',
+
+        labelSealantType: 'Typ tmelu',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+
+        labelDepth: 'Hĺbka vyplnenia (pevná: A = 10 mm, G = 25 mm)',
+        labelOpeningType: 'Typ otvoru',
+        labelCircular: 'Kruhový',
+        labelRectangular: 'Obdĺžnikový',
+
+        titleCircular: '⭕ Parametre kruhového otvoru',
+        labelPipeDiameter: 'Priemer potrubia (mm)',
+        labelInsulation: 'Hrúbka izolácie (mm)',
+        labelAnnularGap: 'Šírka medzikružia (mm)',
+
+        titleRectangular: '▭ Parametre obdĺžnikového otvoru',
+        labelOpeningWidth: 'Šírka otvoru (mm)',
+        labelOpeningHeight: 'Výška otvoru (mm)',
+        labelPipeDiameterRect: 'Priemer potrubia (mm)',
+        labelInsulationRect: 'Hrúbka izolácie (mm)',
+
+        labelSealType: 'Typ utesnenia',
+        labelSingle: 'Jednostranné',
+        labelDouble: 'Obojstranné',
+
+        labelCount: 'Počet prestupov',
+
+        calcTitleCircular: 'Medzivýpočty (kruhový)',
+        labelD2: 'Vonkajší priemer s izoláciou (d2)',
+        labelD3: 'Vonkajší priemer s výplňou (d3)',
+        labelAnnularArea: 'Plocha medzikružia',
+
+        calcTitleRectangular: 'Medzivýpočty (obdĺžnikový)',
+        labelOpeningVolume: 'Objem otvoru (Š×V×hĺbka)',
+        labelOccupiedVolume: 'Objem potrubia + izolácie',
+
+        rectWarningTitle: '⚠️ Upozornenie:',
+        rectWarningText:
+          'Potrubie + izolácia sa nezmestia do otvoru (objem potrubia s izoláciou je väčší než objem otvoru). Spotreba tmelu je nastavená na 0.',
+
+        labelVolumeOne: 'Objem jedného prestupu',
+        labelTotalConsumption: '✅ Celková spotreba tmelu',
+        labelCartridges: '📦 Počet kartuší (300 ml)',
+
+        infoNote: 'ℹ️ Poznámka:',
+        infoText: 'Počet kartuší je zaokrúhlený nahor.',
+
+        footerText: 'Protipožiarne riešenia pre budovy',
+        footerContact: 'Kontakt',
+        footerSupport: 'Technická podpora',
+
+        unitsPieces: 'ks',
+
+        detailsTitle: 'Postup výpočtu',
+        showDetails: 'Zobraziť postup výpočtu',
+        hideDetails: 'Skryť postup výpočtu',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (obojstranné)' : ' (jednostranné)';
+          return `${count} prestupov × ${perOneMl} ml${mult}`;
         },
       },
 
