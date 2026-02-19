@@ -1,676 +1,1217 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html see="" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulačka spotřeby tmelu Pacifyre</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .language-selector {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            display: flex;
-            gap: 10px;
-            background: rgba(255,255,255,0.2);
-            padding: 8px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lang-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: transparent;
-            color: white;
-            font-weight: 500;
-        }
-        
-        .lang-option:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .lang-option.active {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .flag {
-            width: 24px;
-            height: 16px;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-        
-        .header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            opacity: 0.9;
-        }
-        
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 30px;
-        }
-        
-        .section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-        }
-        
-        .section h2 {
-            color: #495057;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-        }
-        
-        .form-group input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-        
-        .form-group input[type="number"]:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .radio-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .radio-option label {
-            cursor: pointer;
-            margin: 0;
-            font-weight: normal;
-        }
-        
-        .subsection {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #6c757d;
-        }
-        
-        .subsection.active {
-            border-left-color: #667eea;
-            background: #f0f4ff;
-        }
-        
-        .subsection h3 {
-            color: #6c757d;
-            font-size: 1em;
-            margin-bottom: 15px;
-        }
-        
-        .subsection.active h3 {
-            color: #667eea;
-        }
-        
-        .result-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #dee2e6;
-        }
-        
-        .result-item.highlight {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border-left-color: #4caf50;
-        }
-        
-        .result-item.primary {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border-left-color: #2196f3;
-        }
-        
-        .result-label {
-            font-size: 0.85em;
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-        
-        .result-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #212529;
-        }
-        
-        .result-unit {
-            font-size: 0.9em;
-            color: #6c757d;
-            margin-left: 5px;
-        }
-        
-        .info-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-        
-        .info-box strong {
-            color: #856404;
-        }
-        
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            
-            .language-selector {
-                position: static;
-                justify-content: center;
-                margin-bottom: 15px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walraven Pacifyre® Sealant Consumption Calculator | Walraven</title>
+  <style>
+    :root {
+      /* Walraven brand green sampled from walraven.com/int logo background */
+      --wr-green: #006c4f;
+      --wr-red: #e60000;
+      --wr-bg: #f5f5f5;
+      --wr-text: #333;
+      --wr-muted: #666;
+      --wr-border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      background: var(--wr-bg);
+      min-height: 100vh;
+      padding: 0;
+      color: var(--wr-text);
+    }
+
+    .top-bar {
+      background: var(--wr-green);
+      color: white;
+      padding: 8px 20px;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    .header {
+      background: var(--wr-green);
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--wr-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: white;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .walraven-logo {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .divider {
+      width: 2px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.35);
+      flex: 0 0 auto;
+    }
+
+    .app-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .language-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .language-selector label {
+      font-size: 12px;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    .lock-icon {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-right: 8px;
+      color: var(--wr-green);
+    }
+
+    .lock-icon svg {
+      display: block;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      color: var(--wr-text);
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    /* override for depth label to align icon + text */
+    #labelDepthText {
+      vertical-align: middle;
+    }
+
+    /* keep original language-selector label declaration below */
+    .language-selector label {
+      font-size: 12px;
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--wr-green);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 8px 34px 8px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .select-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      color: var(--wr-green);
+      font-size: 12px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--wr-green) 0%, #028c66 100%);
+      color: white;
+      padding: 40px 28px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.1em;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.1em;
+      opacity: 0.95;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+
+    .section {
+      padding: 36px 28px;
+    }
+
+    .section.inputs {
+      background: #f9f9f9;
+      border-right: 1px solid var(--wr-border);
+    }
+
+    .section.results {
+      background: white;
+    }
+
+    .section h2 {
+      color: var(--wr-green);
+      margin-bottom: 22px;
+      font-size: 1.45em;
+      font-weight: 700;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #006c4f;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      color: var(--wr-text);
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-group input[type='number'] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-group input[type='number']:focus {
+      outline: none;
+      border-color: var(--wr-green);
+      box-shadow: 0 0 0 2px rgba(0, 108, 79, 0.12);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .radio-option input[type='radio'] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--wr-green);
+    }
+
+    .radio-option label {
+      cursor: pointer;
+      margin: 0;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--wr-text);
+    }
+
+    .subsection {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      border: 1px solid var(--wr-border);
+      border-left: 4px solid #d0d0d0;
+    }
+
+    .subsection.active {
+      border-left-color: var(--wr-green);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .subsection h3 {
+      color: var(--wr-muted);
+      font-size: 15px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .subsection.active h3 {
+      color: var(--wr-green);
+    }
+
+    .result-item {
+      background: #f9f9f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--wr-border);
+    }
+
+    .result-item.highlight {
+      background: #f2fbf7;
+      border-left-color: var(--wr-green);
+    }
+
+    .result-item.primary {
+      background: #f0fff9;
+      border-left-color: var(--wr-green);
+    }
+
+    .result-label {
+      font-size: 13px;
+      color: var(--wr-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .result-value {
+      font-size: 2em;
+      font-weight: 800;
+      color: var(--wr-green);
+    }
+
+    .result-unit {
+      font-size: 0.6em;
+      color: var(--wr-muted);
+      margin-left: 6px;
+      font-weight: 600;
+    }
+
+    .info-box {
+      background: #fffbf0;
+      border: 1px solid #ffd966;
+      border-left: 4px solid #ffa500;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 18px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .info-box strong {
+      color: #cc8800;
+    }
+
+    .footer {
+      background: var(--wr-green);
+      color: white;
+      padding: 26px 28px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+      text-align: left;
+    }
+
+    .footer-left p {
+      margin: 6px 0;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-right .footer-links {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .footer p {
+      margin: 8px 0;
+      opacity: 0.92;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 14px;
+      font-size: 13px;
+      opacity: 0.86;
+      transition: opacity 0.2s;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .toggle-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 108, 79, 0.35);
+      background: rgba(0, 108, 79, 0.08);
+      color: var(--wr-green);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.05s ease, background 0.2s ease;
+    }
+
+    .toggle-btn:hover {
+      background: rgba(0, 108, 79, 0.12);
+    }
+
+    .toggle-btn:active {
+      transform: translateY(1px);
+    }
+
+    .details-panel {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--wr-border);
+    }
+
+    .details-title {
+      font-weight: 800;
+      color: var(--wr-green);
+      margin-bottom: 10px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-right {
+        text-align: left;
+      }
+
+      .footer-right .footer-links {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .section.inputs {
+        border-right: none;
+        border-bottom: 1px solid var(--wr-border);
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-area {
+        width: 100%;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      .language-selector {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .select-wrap,
+      select {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="language-selector">
-                <div class="lang-option active" onclick="setLanguage('cs')" id="langCS">
-                    <svg class="flag" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="900" height="600" fill="#d7141a"/>
-                        <rect width="900" height="300" fill="#fff"/>
-                        <path d="M 450,300 L 0,0 L 0,600 z" fill="#11457e"/>
-                    </svg>
-                    <span>CZ</span>
-                </div>
-                <div class="lang-option" onclick="setLanguage('en')" id="langEN">
-                    <svg class="flag" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-                        <clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
-                        <clipPath id="t"><path d="M30,15 h30 v15 z v-15 h-30 z h-30 v15 z v-15 h30 z"/></clipPath>
-                        <g clip-path="url(#s)">
-                            <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-                            <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
-                            <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
-                            <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
-                        </g>
-                    </svg>
-                    <span>EN</span>
-                </div>
-            </div>
-            <h1 id="headerTitle">🔥 Kalkulačka spotřeby tmelu PACIFYRE</h1>
-            <p id="headerSubtitle">Výpočet spotřeby protipožárního tmelu pro prostupy</p>
+  <div class="top-bar">
+    <span id="topBarText">Multinational with a heart | Since 1942</span>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo-area">
+        <div class="logo">
+          <img src="https://www.walraven.com/de/wp-content/themes/walraven/assets/images/logo.svg" alt="Walraven" class="walraven-logo" />
         </div>
-        
-        <div class="content">
-            <!-- Levý sloupec - Vstupy -->
-            <div class="section">
-                <h2 id="inputsTitle">📋 Vstupní údaje</h2>
-                
-                <div class="form-group">
-                    <label id="labelTypTmelu">Typ tmelu</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="typTmelu" value="A" id="tmelA" checked>
-                            <label for="tmelA">Pacifyre A (10 mm)</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="typTmelu" value="G" id="tmelG">
-                            <label for="tmelG">Pacifyre G (25 mm)</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelHloubka">Hloubka vyplnění (automaticky nastavená)</label>
-                    <input type="number" id="hloubka" readonly style="background: #e9ecef;">
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelTypOtvoru">Typ otvoru</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="typOtvoru" value="kruhový" id="otvorKruhovy" checked>
-                            <label for="otvorKruhovy" id="labelKruhovy">Kruhový (potrubí)</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="typOtvoru" value="obdélníkový" id="otvorObdelnikovy">
-                            <label for="otvorObdelnikovy" id="labelObdelnikovy">Obdélníkový (ventilace)</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Kruhový otvor -->
-                <div class="subsection" id="kruhovySection">
-                    <h3 id="titleKruhovy">⭕ Parametry kruhového otvoru</h3>
-                    <div class="form-group">
-                        <label id="labelPrumer">Průměr potrubí (mm)</label>
-                        <input type="number" id="prumerPotrubi" value="100" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label id="labelIzolace">Tloušťka izolace (mm)</label>
-                        <input type="number" id="tloustkaIzolace" value="30" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label id="labelSirkaVyplne">Šířka výplně mezikruží (mm)</label>
-                        <input type="number" id="sirkaVyplne" value="20" min="0">
-                    </div>
-                </div>
-                
-                <!-- Obdélníkový otvor -->
-                <div class="subsection" id="obdelnikovySection" style="display: none;">
-                    <h3 id="titleObdelnikovy">▭ Parametry obdélníkového otvoru</h3>
-                    <div class="form-group">
-                        <label id="labelSirkaOtvoru">Šířka otvoru (mm)</label>
-                        <input type="number" id="sirkaOtvoru" value="200" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label id="labelVyskaOtvoru">Výška otvoru (mm)</label>
-                        <input type="number" id="vyskaOtvoru" value="150" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label id="labelSirkaRamu">Šířka výplně - rám kolem (mm)</label>
-                        <input type="number" id="sirkaRamu" value="20" min="0">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelTypUcpavky">Typ ucpávky</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="typUcpavky" value="jednostranná" id="ucpavkaJedno" checked>
-                            <label for="ucpavkaJedno" id="labelJednostranna">Jednostranná</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="typUcpavky" value="oboustranná" id="ucpavkaObou">
-                            <label for="ucpavkaObou" id="labelOboustranna">Oboustranná</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelPocetProstupu">Počet prostupů</label>
-                    <input type="number" id="pocetProstupu" value="5" min="1">
-                </div>
-            </div>
-            
-            <!-- Pravý sloupec - Výsledky -->
-            <div class="section">
-                <h2 id="resultsTitle">📊 Výsledky výpočtu</h2>
-                
-                <div id="vypoctyKruhovy">
-                    <h3 style="color: #667eea; margin-bottom: 15px;" id="calcTitleKruhovy">Mezivýpočty (kruhový)</h3>
-                    <div class="result-item">
-                        <div class="result-label" id="labelD2">Vnější průměr s izolací (d2)</div>
-                        <div class="result-value" id="d2">0<span class="result-unit">mm</span></div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label" id="labelD3">Vnější průměr s výplní (d3)</div>
-                        <div class="result-value" id="d3">0<span class="result-unit">mm</span></div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label" id="labelPlochaMezikruzi">Plocha mezikruží</div>
-                        <div class="result-value" id="plochaMezikruzi">0<span class="result-unit">mm²</span></div>
-                    </div>
-                </div>
-                
-                <div id="vypoctyObdelnikovy" style="display: none;">
-                    <h3 style="color: #667eea; margin-bottom: 15px;" id="calcTitleObdelnikovy">Mezivýpočty (obdélníkový)</h3>
-                    <div class="result-item">
-                        <div class="result-label" id="labelVnejsiSirka">Vnější šířka s výplní</div>
-                        <div class="result-value" id="vnejsiSirka">0<span class="result-unit">mm</span></div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label" id="labelVnejsiVyska">Vnější výška s výplní</div>
-                        <div class="result-value" id="vnejsiVyska">0<span class="result-unit">mm</span></div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label" id="labelPlochaRamu">Plocha rámu</div>
-                        <div class="result-value" id="plochaRamu">0<span class="result-unit">mm²</span></div>
-                    </div>
-                </div>
-                
-                <div class="result-item primary">
-                    <div class="result-label" id="labelObjemJeden">Objem jednoho prostupu</div>
-                    <div class="result-value" id="objemJeden">0<span class="result-unit">ml</span></div>
-                </div>
-                
-                <div class="result-item highlight">
-                    <div class="result-label" id="labelCelkovaSpotreба">✅ Celková spotřeba tmelu</div>
-                    <div class="result-value" id="celkovaSpotreба">0<span class="result-unit">ml</span></div>
-                </div>
-                
-                <div class="result-item highlight">
-                    <div class="result-label" id="labelPocetKartusi">📦 Počet kartuší (300 ml)</div>
-                    <div class="result-value" id="pocetKartusi">0<span class="result-unit">ks</span></div>
-                </div>
-                
-                <div class="info-box">
-                    <strong id="infoNote">ℹ️ Poznámka:</strong> <span id="infoText">Počet kartuší je zaokrouhlen nahoru.</span>
-                    <span id="detailVypoctu"></span>
-                </div>
-            </div>
+        <div class="divider"></div>
+        <div class="app-title" id="appTitle">Walraven Pacifyre® Calculator</div>
+      </div>
+
+      <div class="language-selector">
+        <label for="langSelect" id="langLabel">Language</label>
+        <div class="select-wrap">
+          <select id="langSelect" aria-label="Language selector">
+            <option value="en">🇬🇧 English</option>
+            <option value="cs">🇨🇿 Čeština</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="nl">🇳🇱 Nederlands</option>
+          </select>
         </div>
+      </div>
     </div>
-    
-    <script>
-        // Překlady
-        const translations = {
-            cs: {
-                headerTitle: '🔥 Kalkulačka spotřeby tmelu PACIFYRE',
-                headerSubtitle: 'Výpočet spotřeby protipožárního tmelu pro prostupy',
-                inputsTitle: '📋 Vstupní údaje',
-                resultsTitle: '📊 Výsledky výpočtu',
-                labelTypTmelu: 'Typ tmelu',
-                labelHloubka: 'Hloubka vyplnění (automaticky nastavená)',
-                labelTypOtvoru: 'Typ otvoru',
-                labelKruhovy: 'Kruhový (potrubí)',
-                labelObdelnikovy: 'Obdélníkový (ventilace)',
-                titleKruhovy: '⭕ Parametry kruhového otvoru',
-                labelPrumer: 'Průměr potrubí (mm)',
-                labelIzolace: 'Tloušťka izolace (mm)',
-                labelSirkaVyplne: 'Šířka výplně mezikruží (mm)',
-                titleObdelnikovy: '▭ Parametry obdélníkového otvoru',
-                labelSirkaOtvoru: 'Šířka otvoru (mm)',
-                labelVyskaOtvoru: 'Výška otvoru (mm)',
-                labelSirkaRamu: 'Šířka výplně - rám kolem (mm)',
-                labelTypUcpavky: 'Typ ucpávky',
-                labelJednostranna: 'Jednostranná',
-                labelOboustranna: 'Oboustranná',
-                labelPocetProstupu: 'Počet prostupů',
-                calcTitleKruhovy: 'Mezivýpočty (kruhový)',
-                labelD2: 'Vnější průměr s izolací (d2)',
-                labelD3: 'Vnější průměr s výplní (d3)',
-                labelPlochaMezikruzi: 'Plocha mezikruží',
-                calcTitleObdelnikovy: 'Mezivýpočty (obdélníkový)',
-                labelVnejsiSirka: 'Vnější šířka s výplní',
-                labelVnejsiVyska: 'Vnější výška s výplní',
-                labelPlochaRamu: 'Plocha rámu',
-                labelObjemJeden: 'Objem jednoho prostupu',
-                labelCelkovaSpotreба: '✅ Celková spotřeba tmelu',
-                labelPocetKartusi: '📦 Počet kartuší (300 ml)',
-                infoNote: 'ℹ️ Poznámka:',
-                infoText: 'Počet kartuší je zaokrouhlen nahoru.',
-                jednostranna: 'jednostranná',
-                oboustranna: 'oboustranná',
-                prostupu: 'prostupů',
-                detailCalc: '{count} {prostupu} × {volume} ml{type}'
-            },
-            en: {
-                headerTitle: '🔥 PACIFYRE Sealant Calculator',
-                headerSubtitle: 'Fire sealant consumption calculation for penetrations',
-                inputsTitle: '📋 Input Parameters',
-                resultsTitle: '📊 Calculation Results',
-                labelTypTmelu: 'Sealant Type',
-                labelHloubka: 'Fill Depth (auto-set)',
-                labelTypOtvoru: 'Opening Type',
-                labelKruhovy: 'Circular (pipes)',
-                labelObdelnikovy: 'Rectangular (ventilation)',
-                titleKruhovy: '⭕ Circular Opening Parameters',
-                labelPrumer: 'Pipe Diameter (mm)',
-                labelIzolace: 'Insulation Thickness (mm)',
-                labelSirkaVyplne: 'Annular Gap Width (mm)',
-                titleObdelnikovy: '▭ Rectangular Opening Parameters',
-                labelSirkaOtvoru: 'Opening Width (mm)',
-                labelVyskaOtvoru: 'Opening Height (mm)',
-                labelSirkaRamu: 'Fill Width - Frame Around (mm)',
-                labelTypUcpavky: 'Seal Type',
-                labelJednostranna: 'Single-sided',
-                labelOboustranna: 'Double-sided',
-                labelPocetProstupu: 'Number of Penetrations',
-                calcTitleKruhovy: 'Intermediate Calculations (circular)',
-                labelD2: 'Outer Diameter with Insulation (d2)',
-                labelD3: 'Outer Diameter with Fill (d3)',
-                labelPlochaMezikruzi: 'Annular Area',
-                calcTitleObdelnikovy: 'Intermediate Calculations (rectangular)',
-                labelVnejsiSirka: 'Outer Width with Fill',
-                labelVnejsiVyska: 'Outer Height with Fill',
-                labelPlochaRamu: 'Frame Area',
-                labelObjemJeden: 'Volume per Penetration',
-                labelCelkovaSpotreба: '✅ Total Sealant Consumption',
-                labelPocetKartusi: '📦 Number of Cartridges (300 ml)',
-                infoNote: 'ℹ️ Note:',
-                infoText: 'Number of cartridges is rounded up.',
-                jednostranna: 'single-sided',
-                oboustranna: 'double-sided',
-                prostupu: 'penetrations',
-                detailCalc: '{count} {prostupu} × {volume} ml{type}'
-            }
-        };
-        
-        let currentLang = 'cs';
-        
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            // Aktualizace aktivního tlačítka
-            document.getElementById('langCS').classList.toggle('active', lang === 'cs');
-            document.getElementById('langEN').classList.toggle('active', lang === 'en');
-            
-            // Aktualizace všech textů
-            const t = translations[lang];
-            
-            document.getElementById('headerTitle').textContent = t.headerTitle;
-            document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
-            document.getElementById('inputsTitle').textContent = t.inputsTitle;
-            document.getElementById('resultsTitle').textContent = t.resultsTitle;
-            document.getElementById('labelTypTmelu').textContent = t.labelTypTmelu;
-            document.getElementById('labelHloubka').textContent = t.labelHloubka;
-            document.getElementById('labelTypOtvoru').textContent = t.labelTypOtvoru;
-            document.getElementById('labelKruhovy').textContent = t.labelKruhovy;
-            document.getElementById('labelObdelnikovy').textContent = t.labelObdelnikovy;
-            document.getElementById('titleKruhovy').textContent = t.titleKruhovy;
-            document.getElementById('labelPrumer').textContent = t.labelPrumer;
-            document.getElementById('labelIzolace').textContent = t.labelIzolace;
-            document.getElementById('labelSirkaVyplne').textContent = t.labelSirkaVyplne;
-            document.getElementById('titleObdelnikovy').textContent = t.titleObdelnikovy;
-            document.getElementById('labelSirkaOtvoru').textContent = t.labelSirkaOtvoru;
-            document.getElementById('labelVyskaOtvoru').textContent = t.labelVyskaOtvoru;
-            document.getElementById('labelSirkaRamu').textContent = t.labelSirkaRamu;
-            document.getElementById('labelTypUcpavky').textContent = t.labelTypUcpavky;
-            document.getElementById('labelJednostranna').textContent = t.labelJednostranna;
-            document.getElementById('labelOboustranna').textContent = t.labelOboustranna;
-            document.getElementById('labelPocetProstupu').textContent = t.labelPocetProstupu;
-            document.getElementById('calcTitleKruhovy').textContent = t.calcTitleKruhovy;
-            document.getElementById('labelD2').textContent = t.labelD2;
-            document.getElementById('labelD3').textContent = t.labelD3;
-            document.getElementById('labelPlochaMezikruzi').textContent = t.labelPlochaMezikruzi;
-            document.getElementById('calcTitleObdelnikovy').textContent = t.calcTitleObdelnikovy;
-            document.getElementById('labelVnejsiSirka').textContent = t.labelVnejsiSirka;
-            document.getElementById('labelVnejsiVyska').textContent = t.labelVnejsiVyska;
-            document.getElementById('labelPlochaRamu').textContent = t.labelPlochaRamu;
-            document.getElementById('labelObjemJeden').textContent = t.labelObjemJeden;
-            document.getElementById('labelCelkovaSpotreба').textContent = t.labelCelkovaSpotreба;
-            document.getElementById('labelPocetKartusi').textContent = t.labelPocetKartusi;
-            document.getElementById('infoNote').textContent = t.infoNote;
-            document.getElementById('infoText').textContent = t.infoText;
-            
-            // Přepočítat detaily
-            vypocitat();
-        }
-        
-        // Inicializace
-        document.addEventListener('DOMContentLoaded', function() {
-            nastavHloubku();
-            vypocitat();
-            
-            // Event listenery
-            document.querySelectorAll('input[name="typTmelu"]').forEach(radio => {
-                radio.addEventListener('change', nastavHloubku);
-            });
-            
-            document.querySelectorAll('input[name="typOtvoru"]').forEach(radio => {
-                radio.addEventListener('change', prepnoutTypOtvoru);
-            });
-            
-            document.querySelectorAll('input[type="number"]').forEach(input => {
-                input.addEventListener('input', vypocitat);
-            });
-            
-            document.querySelectorAll('input[name="typUcpavky"]').forEach(radio => {
-                radio.addEventListener('change', vypocitat);
-            });
-        });
-        
-        function nastavHloubku() {
-            const typTmelu = document.querySelector('input[name="typTmelu"]:checked').value;
-            const hloubka = typTmelu === 'A' ? 10 : 25;
-            document.getElementById('hloubka').value = hloubka;
-            vypocitat();
-        }
-        
-        function prepnoutTypOtvoru() {
-            const typOtvoru = document.querySelector('input[name="typOtvoru"]:checked').value;
-            const kruhovySection = document.getElementById('kruhovySection');
-            const obdelnikovySection = document.getElementById('obdelnikovySection');
-            const vypoctyKruhovy = document.getElementById('vypoctyKruhovy');
-            const vypoctyObdelnikovy = document.getElementById('vypoctyObdelnikovy');
-            
-            if (typOtvoru === 'kruhový') {
-                kruhovySection.style.display = 'block';
-                kruhovySection.classList.add('active');
-                obdelnikovySection.style.display = 'none';
-                obdelnikovySection.classList.remove('active');
-                vypoctyKruhovy.style.display = 'block';
-                vypoctyObdelnikovy.style.display = 'none';
-            } else {
-                kruhovySection.style.display = 'none';
-                kruhovySection.classList.remove('active');
-                obdelnikovySection.style.display = 'block';
-                obdelnikovySection.classList.add('active');
-                vypoctyKruhovy.style.display = 'none';
-                vypoctyObdelnikovy.style.display = 'block';
-            }
-            
-            vypocitat();
-        }
-        
-        function vypocitat() {
-            const typOtvoru = document.querySelector('input[name="typOtvoru"]:checked').value;
-            const hloubka = parseFloat(document.getElementById('hloubka').value) || 0;
-            const typUcpavky = document.querySelector('input[name="typUcpavky"]:checked').value;
-            const pocetProstupu = parseFloat(document.getElementById('pocetProstupu').value) || 0;
-            const nasobek = typUcpavky === 'oboustranná' ? 2 : 1;
-            
-            const t = translations[currentLang];
-            
-            let plocha = 0;
-            
-            if (typOtvoru === 'kruhový') {
-                const prumer = parseFloat(document.getElementById('prumerPotrubi').value) || 0;
-                const izolace = parseFloat(document.getElementById('tloustkaIzolace').value) || 0;
-                const sirkaVyplne = parseFloat(document.getElementById('sirkaVyplne').value) || 0;
-                
-                const d2 = prumer + 2 * izolace;
-                const d3 = d2 + 2 * sirkaVyplne;
-                const r2 = d2 / 2;
-                const r3 = d3 / 2;
-                plocha = Math.PI * (r3 * r3 - r2 * r2);
-                
-                document.getElementById('d2').innerHTML = `${d2.toFixed(1)}<span class="result-unit">mm</span>`;
-                document.getElementById('d3').innerHTML = `${d3.toFixed(1)}<span class="result-unit">mm</span>`;
-                document.getElementById('plochaMezikruzi').innerHTML = `${plocha.toFixed(1)}<span class="result-unit">mm²</span>`;
-            } else {
-                const sirka = parseFloat(document.getElementById('sirkaOtvoru').value) || 0;
-                const vyska = parseFloat(document.getElementById('vyskaOtvoru').value) || 0;
-                const ram = parseFloat(document.getElementById('sirkaRamu').value) || 0;
-                
-                const vnejsiSirka = sirka + 2 * ram;
-                const vnejsiVyska = vyska + 2 * ram;
-                const plochaVnejsi = vnejsiSirka * vnejsiVyska;
-                const plochaVnitrni = sirka * vyska;
-                plocha = plochaVnejsi - plochaVnitrni;
-                
-                document.getElementById('vnejsiSirka').innerHTML = `${vnejsiSirka.toFixed(1)}<span class="result-unit">mm</span>`;
-                document.getElementById('vnejsiVyska').innerHTML = `${vnejsiVyska.toFixed(1)}<span class="result-unit">mm</span>`;
-                document.getElementById('plochaRamu').innerHTML = `${plocha.toFixed(1)}<span class="result-unit">mm²</span>`;
-            }
-            
-            const objemJeden = (plocha * hloubka) / 1000;
-            const celkovaSpotreба = objemJeden * pocetProstupu * nasobek;
-            const pocetKartusi = Math.ceil(celkovaSpotreба / 300);
-            
-            document.getElementById('objemJeden').innerHTML = `${objemJeden.toFixed(1)}<span class="result-unit">ml</span>`;
-            document.getElementById('celkovaSpotreба').innerHTML = `${celkovaSpotreба.toFixed(1)}<span class="result-unit">ml</span>`;
-            document.getElementById('pocetKartusi').innerHTML = `${pocetKartusi}<span class="result-unit">ks</span>`;
-            
-            const typeText = nasobek === 2 ? ` × 2 (${t.oboustranna})` : ` (${t.jednostranna})`;
-            const detail = `${pocetProstupu} ${t.prostupu} × ${objemJeden.toFixed(1)} ml${typeText}`;
-            document.getElementById('detailVypoctu').textContent = detail;
-        }
-    </script>
+
+    <div class="hero">
+      <h1 id="heroTitle">🔥 Walraven Pacifyre® Sealant Calculator</h1>
+      <p id="heroSubtitle">Fire sealant consumption calculation for wall and floor penetrations</p>
+    </div>
+
+    <div class="content">
+      <!-- Left column - inputs -->
+      <div class="section inputs">
+        <h2 id="inputsTitle">Input Parameters</h2>
+
+        <div class="form-group">
+          <label id="labelSealantType">Sealant Type</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="sealantType" value="A" id="sealantA" checked />
+              <label for="sealantA" id="sealantALabel">Walraven Pacifyre® A (10 mm)</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="sealantType" value="G" id="sealantG" />
+              <label for="sealantG" id="sealantGLabel">Walraven Pacifyre® G (25 mm)</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <span class="lock-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="16" height="16" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M17 8h-1V6a4 4 0 10-8 0v2H7a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2v-9a2 2 0 00-2-2zm-7-2a2 2 0 114 0v2h-4V6zm7 13H7v-9h10v9z"/>
+              </svg>
+            </span>
+            <span id="labelDepthText">Fill Depth (fixed: A = 10 mm, G = 25 mm)</span>
+          </label>
+          <input type="text" id="depth" readonly disabled style="background: #e9ecef; font-weight:700; color: var(--wr-green);" />
+        </div>
+
+        <div class="form-group">
+          <label id="labelOpeningType">Opening Type</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="openingType" value="circular" id="openingCircular" checked />
+              <label for="openingCircular" id="labelCircular">Circular</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="openingType" value="rectangular" id="openingRectangular" />
+              <label for="openingRectangular" id="labelRectangular">Rectangular</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Circular opening -->
+        <div class="subsection active" id="circularSection">
+          <h3 id="titleCircular">⭕ Circular Opening Parameters</h3>
+          <div class="form-group">
+            <label id="labelPipeDiameter">Pipe Diameter (mm)</label>
+            <input type="number" id="pipeDiameter" value="100" min="0" />
+          </div>
+          <div class="form-group">
+            <label id="labelInsulation">Insulation Thickness (mm)</label>
+            <input type="number" id="insulationThickness" value="30" min="0" />
+          </div>
+          <div class="form-group">
+            <label id="labelAnnularGap">Annular Gap Width (mm)</label>
+            <input type="number" id="annularGap" value="20" min="0" />
+          </div>
+        </div>
+
+        <!-- Rectangular opening -->
+        <div class="subsection" id="rectangularSection" style="display: none">
+          <h3 id="titleRectangular">▭ Rectangular Opening Parameters</h3>
+          <div class="form-group">
+            <label id="labelOpeningWidth">Opening Width (mm)</label>
+            <input type="number" id="openingWidth" value="200" min="0" />
+          </div>
+          <div class="form-group">
+            <label id="labelOpeningHeight">Opening Height (mm)</label>
+            <input type="number" id="openingHeight" value="150" min="0" />
+          </div>
+          <div class="form-group">
+            <label id="labelFrameWidth">Fill Width - Frame Around (mm)</label>
+            <input type="number" id="frameWidth" value="20" min="0" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label id="labelSealType">Seal Type</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="sealType" value="double" id="sealDouble" checked />
+              <label for="sealDouble" id="labelDouble">Double-sided</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="sealType" value="single" id="sealSingle" />
+              <label for="sealSingle" id="labelSingle">Single-sided</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label id="labelCount">Number of Penetrations</label>
+          <input type="number" id="penetrationCount" value="5" min="1" />
+        </div>
+      </div>
+
+      <!-- Right column - results -->
+      <div class="section results">
+        <h2 id="resultsTitle">Calculation Results</h2>
+
+        <!-- Always visible: cartridges only -->
+        <div class="result-item highlight" style="margin-top: 6px;">
+          <div class="result-label" id="labelCartridges">📦 Number of Cartridges (300 ml)</div>
+          <div class="result-value" id="cartridges">0<span class="result-unit">pcs</span></div>
+        </div>
+
+        <button type="button" class="toggle-btn" id="toggleDetails" aria-expanded="false">
+          <span id="toggleDetailsText">Show calculation steps</span>
+        </button>
+
+        <!-- Hidden details (calculation steps) -->
+        <div id="detailsPanel" class="details-panel hidden" aria-hidden="true">
+          <div class="details-title" id="detailsTitle">Calculation steps</div>
+
+          <div id="calcCircular">
+            <h3 style="color: var(--wr-green); margin-bottom: 12px; font-size: 16px" id="calcTitleCircular">
+              Intermediate Calculations (circular)
+            </h3>
+            <div class="result-item">
+              <div class="result-label" id="labelD2">Outer Diameter with Insulation (d2)</div>
+              <div class="result-value" id="d2">0<span class="result-unit">mm</span></div>
+            </div>
+            <div class="result-item">
+              <div class="result-label" id="labelD3">Outer Diameter with Fill (d3)</div>
+              <div class="result-value" id="d3">0<span class="result-unit">mm</span></div>
+            </div>
+            <div class="result-item">
+              <div class="result-label" id="labelAnnularArea">Annular Area</div>
+              <div class="result-value" id="annularArea">0<span class="result-unit">mm²</span></div>
+            </div>
+          </div>
+
+          <div id="calcRectangular" style="display: none">
+            <h3 style="color: var(--wr-green); margin-bottom: 12px; font-size: 16px" id="calcTitleRectangular">
+              Intermediate Calculations (rectangular)
+            </h3>
+            <div class="result-item">
+              <div class="result-label" id="labelOuterWidth">Outer Width with Fill</div>
+              <div class="result-value" id="outerWidth">0<span class="result-unit">mm</span></div>
+            </div>
+            <div class="result-item">
+              <div class="result-label" id="labelOuterHeight">Outer Height with Fill</div>
+              <div class="result-value" id="outerHeight">0<span class="result-unit">mm</span></div>
+            </div>
+            <div class="result-item">
+              <div class="result-label" id="labelFrameArea">Frame Area</div>
+              <div class="result-value" id="frameArea">0<span class="result-unit">mm²</span></div>
+            </div>
+          </div>
+
+          <div class="result-item primary">
+            <div class="result-label" id="labelVolumeOne">Volume per Penetration</div>
+            <div class="result-value" id="volumeOne">0<span class="result-unit">ml</span></div>
+          </div>
+
+          <div class="result-item highlight">
+            <div class="result-label" id="labelTotalConsumption">✅ Total Sealant Consumption</div>
+            <div class="result-value" id="totalConsumption">0<span class="result-unit">ml</span></div>
+          </div>
+
+          <div class="info-box">
+            <strong id="infoNote">ℹ️ Note:</strong>
+            <span id="infoText">Number of cartridges is rounded up.</span>
+            <span id="calcDetail"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-grid">
+          <div class="footer-left">
+            <p><strong>WALRAVEN</strong> | Multinational with a heart</p>
+            <p id="footerText">Fire protection solutions for buildings</p>
+          </div>
+          <div class="footer-right">
+            <div class="footer-links">
+              <a href="https://www.walraven.com" target="_blank" rel="noreferrer">walraven.com</a>
+              <a href="#" id="footerContact">Contact</a>
+              <a href="#" id="footerSupport">Technical Support</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        langLabel: 'Language',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Walraven Pacifyre® Calculator',
+        heroTitle: '🔥 Walraven Pacifyre® Sealant Calculator',
+        heroSubtitle: 'Fire sealant consumption calculation for wall and floor penetrations',
+        inputsTitle: 'Input Parameters',
+        resultsTitle: 'Calculation Results',
+
+        labelSealantType: 'Sealant Type',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+
+        labelDepth: 'Fill Depth (fixed: A = 10 mm, G = 25 mm)',
+        labelOpeningType: 'Opening Type',
+        labelCircular: 'Circular',
+        labelRectangular: 'Rectangular',
+
+        titleCircular: '⭕ Circular Opening Parameters',
+        labelPipeDiameter: 'Pipe Diameter (mm)',
+        labelInsulation: 'Insulation Thickness (mm)',
+        labelAnnularGap: 'Annular Gap Width (mm)',
+
+        titleRectangular: '▭ Rectangular Opening Parameters',
+        labelOpeningWidth: 'Opening Width (mm)',
+        labelOpeningHeight: 'Opening Height (mm)',
+        labelFrameWidth: 'Fill Width - Frame Around (mm)',
+
+        labelSealType: 'Seal Type',
+        labelSingle: 'Single-sided',
+        labelDouble: 'Double-sided',
+
+        labelCount: 'Number of Penetrations',
+
+        calcTitleCircular: 'Intermediate Calculations (circular)',
+        labelD2: 'Outer Diameter with Insulation (d2)',
+        labelD3: 'Outer Diameter with Fill (d3)',
+        labelAnnularArea: 'Annular Area',
+
+        calcTitleRectangular: 'Intermediate Calculations (rectangular)',
+        labelOuterWidth: 'Outer Width with Fill',
+        labelOuterHeight: 'Outer Height with Fill',
+        labelFrameArea: 'Frame Area',
+
+        labelVolumeOne: 'Volume per Penetration',
+        labelTotalConsumption: '✅ Total Sealant Consumption',
+        labelCartridges: '📦 Number of Cartridges (300 ml)',
+
+        infoNote: 'ℹ️ Note:',
+        infoText: 'Number of cartridges is rounded up.',
+
+        footerText: 'Fire protection solutions for buildings',
+        footerContact: 'Contact',
+        footerSupport: 'Technical Support',
+
+        unitsPieces: 'pcs',
+
+        detailsTitle: 'Calculation steps',
+        showDetails: 'Show calculation steps',
+        hideDetails: 'Hide calculation steps',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (double-sided)' : ' (single-sided)';
+          return `${count} penetrations × ${perOneMl} ml${mult}`;
+        },
+      },
+
+      cs: {
+        langLabel: 'Jazyk',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Kalkulačka Walraven Pacifyre®',
+        heroTitle: '🔥 Kalkulačka spotřeby tmelu Walraven Pacifyre®',
+        heroSubtitle: 'Výpočet spotřeby protipožárního tmelu pro prostupy stěnami a stropy',
+        inputsTitle: 'Vstupní údaje',
+        resultsTitle: 'Výsledky výpočtu',
+
+        labelSealantType: 'Typ tmelu',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+
+        labelDepth: 'Hloubka vyplnění (pevná: A = 10 mm, G = 25 mm)',
+        labelOpeningType: 'Typ otvoru',
+        labelCircular: 'Kruhový',
+        labelRectangular: 'Obdélníkový',
+
+        titleCircular: '⭕ Parametry kruhového otvoru',
+        labelPipeDiameter: 'Průměr potrubí (mm)',
+        labelInsulation: 'Tloušťka izolace (mm)',
+        labelAnnularGap: 'Šířka výplně mezikruží (mm)',
+
+        titleRectangular: '▭ Parametry obdélníkového otvoru',
+        labelOpeningWidth: 'Šířka otvoru (mm)',
+        labelOpeningHeight: 'Výška otvoru (mm)',
+        labelFrameWidth: 'Šířka výplně - rám kolem (mm)',
+
+        labelSealType: 'Typ ucpávky',
+        labelSingle: 'Jednostranná',
+        labelDouble: 'Oboustranná',
+
+        labelCount: 'Počet prostupů',
+
+        calcTitleCircular: 'Mezivýpočty (kruhový)',
+        labelD2: 'Vnější průměr s izolací (d2)',
+        labelD3: 'Vnější průměr s výplní (d3)',
+        labelAnnularArea: 'Plocha mezikruží',
+
+        calcTitleRectangular: 'Mezivýpočty (obdélníkový)',
+        labelOuterWidth: 'Vnější šířka s výplní',
+        labelOuterHeight: 'Vnější výška s výplní',
+        labelFrameArea: 'Plocha rámu',
+
+        labelVolumeOne: 'Objem jednoho prostupu',
+        labelTotalConsumption: '✅ Celková spotřeba tmelu',
+        labelCartridges: '📦 Počet kartuší (300 ml)',
+
+        infoNote: 'ℹ️ Poznámka:',
+        infoText: 'Počet kartuší je zaokrouhlen nahoru.',
+
+        footerText: 'Protipožární řešení pro budovy | Fire protection solutions for buildings',
+        footerContact: 'Kontakt',
+        footerSupport: 'Technická podpora',
+
+        unitsPieces: 'ks',
+
+        detailsTitle: 'Postup výpočtu',
+        showDetails: 'Zobrazit postup výpočtu',
+        hideDetails: 'Skrýt postup výpočtu',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (oboustranná)' : ' (jednostranná)';
+          return `${count} prostupů × ${perOneMl} ml${mult}`;
+        },
+      },
+
+      pl: {
+        langLabel: 'Język',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Kalkulator Walraven Pacifyre®',
+        heroTitle: '🔥 Kalkulator zużycia uszczelniacza Walraven Pacifyre®',
+        heroSubtitle: 'Obliczanie zużycia uszczelniacza ogniochronnego dla przejść przez ściany i stropy',
+        inputsTitle: 'Dane wejściowe',
+        resultsTitle: 'Wyniki obliczeń',
+
+        labelSealantType: 'Typ uszczelniacza',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+
+        labelDepth: 'Głębokość wypełnienia (stała: A = 10 mm, G = 25 mm)',
+        labelOpeningType: 'Typ otworu',
+        labelCircular: 'Okrągły',
+        labelRectangular: 'Prostokątny',
+
+        titleCircular: '⭕ Parametry otworu okrągłego',
+        labelPipeDiameter: 'Średnica rury (mm)',
+        labelInsulation: 'Grubość izolacji (mm)',
+        labelAnnularGap: 'Szerokość szczeliny pierścieniowej (mm)',
+
+        titleRectangular: '▭ Parametry otworu prostokątnego',
+        labelOpeningWidth: 'Szerokość otworu (mm)',
+        labelOpeningHeight: 'Wysokość otworu (mm)',
+        labelFrameWidth: 'Szerokość wypełnienia - ramka (mm)',
+
+        labelSealType: 'Typ uszczelnienia',
+        labelSingle: 'Jednostronne',
+        labelDouble: 'Dwustronne',
+
+        labelCount: 'Liczba przejść',
+
+        calcTitleCircular: 'Obliczenia pośrednie (okrągły)',
+        labelD2: 'Średnica zewnętrzna z izolacją (d2)',
+        labelD3: 'Średnica zewnętrzna z wypełnieniem (d3)',
+        labelAnnularArea: 'Pole pierścienia',
+
+        calcTitleRectangular: 'Obliczenia pośrednie (prostokątny)',
+        labelOuterWidth: 'Szerokość zewnętrzna z wypełnieniem',
+        labelOuterHeight: 'Wysokość zewnętrzna z wypełnieniem',
+        labelFrameArea: 'Pole ramki',
+
+        labelVolumeOne: 'Objętość na jedno przejście',
+        labelTotalConsumption: '✅ Całkowite zużycie uszczelniacza',
+        labelCartridges: '📦 Liczba kartuszy (300 ml)',
+
+        infoNote: 'ℹ️ Uwaga:',
+        infoText: 'Liczba kartuszy jest zaokrąglana w górę.',
+
+        footerText: 'Rozwiązania ochrony przeciwpożarowej dla budynków',
+        footerContact: 'Kontakt',
+        footerSupport: 'Wsparcie techniczne',
+
+        unitsPieces: 'szt.',
+
+        detailsTitle: 'Kroki obliczeń',
+        showDetails: 'Pokaż kroki obliczeń',
+        hideDetails: 'Ukryj kroki obliczeń',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (dwustronne)' : ' (jednostronne)';
+          return `${count} przejść × ${perOneMl} ml${mult}`;
+        },
+      },
+
+      nl: {
+        langLabel: 'Taal',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Walraven Pacifyre® Calculator',
+        heroTitle: '🔥 Walraven Pacifyre® Kitverbruik Calculator',
+        heroSubtitle: 'Berekening van brandwerend kitverbruik voor doorvoeren in wanden en vloeren',
+        inputsTitle: 'Invoer',
+        resultsTitle: 'Resultaten',
+
+        labelSealantType: 'Type kit',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+
+        labelDepth: 'Vuldiepte (vast: A = 10 mm, G = 25 mm)',
+        labelOpeningType: 'Type opening',
+        labelCircular: 'Rond',
+        labelRectangular: 'Rechthoekig',
+
+        titleCircular: '⭕ Parameters ronde opening',
+        labelPipeDiameter: 'Buisdiameter (mm)',
+        labelInsulation: 'Isolatiedikte (mm)',
+        labelAnnularGap: 'Breedte ringruimte (mm)',
+
+        titleRectangular: '▭ Parameters rechthoekige opening',
+        labelOpeningWidth: 'Breedte opening (mm)',
+        labelOpeningHeight: 'Hoogte opening (mm)',
+        labelFrameWidth: 'Vulbreedte - kader (mm)',
+
+        labelSealType: 'Type afdichting',
+        labelSingle: 'Enkelzijdig',
+        labelDouble: 'Dubbelzijdig',
+
+        labelCount: 'Aantal doorvoeren',
+
+        calcTitleCircular: 'Tussenberekeningen (rond)',
+        labelD2: 'Buitendiameter met isolatie (d2)',
+        labelD3: 'Buitendiameter met vulling (d3)',
+        labelAnnularArea: 'Ringoppervlak',
+
+        calcTitleRectangular: 'Tussenberekeningen (rechthoekig)',
+        labelOuterWidth: 'Buitenbreedte met vulling',
+        labelOuterHeight: 'Buitenhoogte met vulling',
+        labelFrameArea: 'Kaderoppervlak',
+
+        labelVolumeOne: 'Volume per doorvoer',
+        labelTotalConsumption: '✅ Totaal kitverbruik',
+        labelCartridges: '📦 Aantal kokers (300 ml)',
+
+        infoNote: 'ℹ️ Opmerking:',
+        infoText: 'Aantal kokers wordt naar boven afgerond.',
+
+        footerText: 'Brandwerende oplossingen voor gebouwen',
+        footerContact: 'Contact',
+        footerSupport: 'Technische ondersteuning',
+
+        unitsPieces: 'st.',
+
+        detailsTitle: 'Berekeningsstappen',
+        showDetails: 'Toon berekeningsstappen',
+        hideDetails: 'Verberg berekeningsstappen',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (dubbelzijdig)' : ' (enkelzijdig)';
+          return `${count} doorvoeren × ${perOneMl} ml${mult}`;
+        },
+      },
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      currentLang = translations[lang] ? lang : 'en';
+      const t = translations[currentLang];
+
+      document.documentElement.lang = currentLang;
+
+      // Labels in header
+      document.getElementById('langLabel').textContent = t.langLabel;
+
+      // Top + hero + sections
+      document.getElementById('topBarText').textContent = t.topBarText;
+      document.getElementById('appTitle').textContent = t.appTitle;
+      document.getElementById('heroTitle').textContent = t.heroTitle;
+      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+      document.getElementById('inputsTitle').textContent = t.inputsTitle;
+      document.getElementById('resultsTitle').textContent = t.resultsTitle;
+
+      // Inputs
+      document.getElementById('labelSealantType').textContent = t.labelSealantType;
+      document.getElementById('sealantALabel').textContent = t.sealantALabel;
+      document.getElementById('sealantGLabel').textContent = t.sealantGLabel;
+
+      document.getElementById('labelDepthText').textContent = t.labelDepth;
+
+      document.getElementById('labelOpeningType').textContent = t.labelOpeningType;
+      document.getElementById('labelCircular').textContent = t.labelCircular;
+      document.getElementById('labelRectangular').textContent = t.labelRectangular;
+
+      document.getElementById('titleCircular').textContent = t.titleCircular;
+      document.getElementById('labelPipeDiameter').textContent = t.labelPipeDiameter;
+      document.getElementById('labelInsulation').textContent = t.labelInsulation;
+      document.getElementById('labelAnnularGap').textContent = t.labelAnnularGap;
+
+      document.getElementById('titleRectangular').textContent = t.titleRectangular;
+      document.getElementById('labelOpeningWidth').textContent = t.labelOpeningWidth;
+      document.getElementById('labelOpeningHeight').textContent = t.labelOpeningHeight;
+      document.getElementById('labelFrameWidth').textContent = t.labelFrameWidth;
+
+      document.getElementById('labelSealType').textContent = t.labelSealType;
+      document.getElementById('labelSingle').textContent = t.labelSingle;
+      document.getElementById('labelDouble').textContent = t.labelDouble;
+
+      document.getElementById('labelCount').textContent = t.labelCount;
+
+      // Results labels
+      document.getElementById('calcTitleCircular').textContent = t.calcTitleCircular;
+      document.getElementById('labelD2').textContent = t.labelD2;
+      document.getElementById('labelD3').textContent = t.labelD3;
+      document.getElementById('labelAnnularArea').textContent = t.labelAnnularArea;
+
+      document.getElementById('calcTitleRectangular').textContent = t.calcTitleRectangular;
+      document.getElementById('labelOuterWidth').textContent = t.labelOuterWidth;
+      document.getElementById('labelOuterHeight').textContent = t.labelOuterHeight;
+      document.getElementById('labelFrameArea').textContent = t.labelFrameArea;
+
+      document.getElementById('labelVolumeOne').textContent = t.labelVolumeOne;
+      document.getElementById('labelTotalConsumption').textContent = t.labelTotalConsumption;
+      document.getElementById('labelCartridges').textContent = t.labelCartridges;
+
+      document.getElementById('infoNote').textContent = t.infoNote;
+      document.getElementById('infoText').textContent = t.infoText;
+
+      document.getElementById('footerText').textContent = t.footerText;
+      document.getElementById('footerContact').textContent = t.footerContact;
+      document.getElementById('footerSupport').textContent = t.footerSupport;
+
+      // Sync dropdown
+      const sel = document.getElementById('langSelect');
+      if (sel && sel.value !== currentLang) sel.value = currentLang;
+
+      // Keep details UI texts in sync
+      const t2 = translations[currentLang] || translations.en;
+      const panel = document.getElementById('detailsPanel');
+      const btn = document.getElementById('toggleDetails');
+      const txt = document.getElementById('toggleDetailsText');
+      const detailsTitleEl = document.getElementById('detailsTitle');
+      if (detailsTitleEl) detailsTitleEl.textContent = t2.detailsTitle;
+      if (btn && txt) {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        txt.textContent = expanded ? t2.hideDetails : t2.showDetails;
+      }
+
+      // Recalculate details text
+      calculate();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Default: English as first choice
+      const sel = document.getElementById('langSelect');
+      sel.value = 'en';
+      sel.addEventListener('change', (e) => setLanguage(e.target.value));
+
+      setDepth();
+      setLanguage('en');
+
+      // Events
+      document.querySelectorAll('input[name="sealantType"]').forEach((radio) => {
+        radio.addEventListener('change', setDepth);
+      });
+
+      document.querySelectorAll('input[name="openingType"]').forEach((radio) => {
+        radio.addEventListener('change', toggleOpeningType);
+      });
+
+      document.querySelectorAll('input[type="number"]').forEach((input) => {
+        input.addEventListener('input', calculate);
+      });
+
+      document.querySelectorAll('input[name="sealType"]').forEach((radio) => {
+        radio.addEventListener('change', calculate);
+      });
+
+      // Details toggle
+      const toggleBtn = document.getElementById('toggleDetails');
+      if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
+    });
+
+    function setDepth() {
+      const sealantType = document.querySelector('input[name="sealantType"]:checked').value;
+      const depth = sealantType === 'A' ? 10 : 25;
+      document.getElementById('depth').value = depth;
+      calculate();
+    }
+
+    function toggleOpeningType() {
+      const openingType = document.querySelector('input[name="openingType"]:checked').value;
+
+      const circularSection = document.getElementById('circularSection');
+      const rectangularSection = document.getElementById('rectangularSection');
+      const calcCircular = document.getElementById('calcCircular');
+      const calcRectangular = document.getElementById('calcRectangular');
+      if (openingType === 'circular') {
+        circularSection.style.display = 'block';
+        circularSection.classList.add('active');
+        rectangularSection.style.display = 'none';
+        rectangularSection.classList.remove('active');
+        calcCircular.style.display = 'block';
+        calcRectangular.style.display = 'none';
+      } else {
+        circularSection.style.display = 'none';
+        circularSection.classList.remove('active');
+        rectangularSection.style.display = 'block';
+        rectangularSection.classList.add('active');
+        calcCircular.style.display = 'none';
+        calcRectangular.style.display = 'block';
+      }
+
+      calculate();
+    }
+
+    function toggleDetails() {
+      const panel = document.getElementById('detailsPanel');
+      const btn = document.getElementById('toggleDetails');
+      const txt = document.getElementById('toggleDetailsText');
+      const t = translations[currentLang] || translations.en;
+
+      const isHidden = panel.classList.contains('hidden');
+      if (isHidden) {
+        panel.classList.remove('hidden');
+        panel.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        if (txt) txt.textContent = t.hideDetails;
+      } else {
+        panel.classList.add('hidden');
+        panel.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        if (txt) txt.textContent = t.showDetails;
+      }
+    }
+
+    function calculate() {
+      const openingType = document.querySelector('input[name="openingType"]:checked').value;
+      const depth = parseFloat(document.getElementById('depth').value) || 0;
+      const sealType = document.querySelector('input[name="sealType"]:checked').value;
+      const count = parseFloat(document.getElementById('penetrationCount').value) || 0;
+      const multiplier = sealType === 'double' ? 2 : 1;
+
+      let area = 0;
+
+      if (openingType === 'circular') {
+        const pipeDiameter = parseFloat(document.getElementById('pipeDiameter').value) || 0;
+        const insulation = parseFloat(document.getElementById('insulationThickness').value) || 0;
+        const gap = parseFloat(document.getElementById('annularGap').value) || 0;
+
+        const d2 = pipeDiameter + 2 * insulation;
+        const d3 = d2 + 2 * gap;
+        const r2 = d2 / 2;
+        const r3 = d3 / 2;
+        area = Math.PI * (r3 * r3 - r2 * r2);
+
+        document.getElementById('d2').innerHTML = `${d2.toFixed(1)}<span class="result-unit">mm</span>`;
+        document.getElementById('d3').innerHTML = `${d3.toFixed(1)}<span class="result-unit">mm</span>`;
+        document.getElementById('annularArea').innerHTML = `${area.toFixed(1)}<span class="result-unit">mm²</span>`;
+      } else {
+        const w = parseFloat(document.getElementById('openingWidth').value) || 0;
+        const h = parseFloat(document.getElementById('openingHeight').value) || 0;
+        const frame = parseFloat(document.getElementById('frameWidth').value) || 0;
+
+        const outerW = w + 2 * frame;
+        const outerH = h + 2 * frame;
+        const outerArea = outerW * outerH;
+        const innerArea = w * h;
+        area = outerArea - innerArea;
+
+        document.getElementById('outerWidth').innerHTML = `${outerW.toFixed(1)}<span class="result-unit">mm</span>`;
+        document.getElementById('outerHeight').innerHTML = `${outerH.toFixed(1)}<span class="result-unit">mm</span>`;
+        document.getElementById('frameArea').innerHTML = `${area.toFixed(1)}<span class="result-unit">mm²</span>`;
+      }
+
+      const volumeOne = (area * depth) / 1000; // mm³ -> ml
+      const total = volumeOne * count * multiplier;
+      const cartridges = Math.ceil(total / 300);
+
+      document.getElementById('volumeOne').innerHTML = `${volumeOne.toFixed(1)}<span class="result-unit">ml</span>`;
+      document.getElementById('totalConsumption').innerHTML = `${total.toFixed(1)}<span class="result-unit">ml</span>`;
+
+      const t = translations[currentLang] || translations.en;
+      document.getElementById('cartridges').innerHTML = `${cartridges}<span class="result-unit">${t.unitsPieces}</span>`;
+
+      const detail = t.calcDetail(count, volumeOne.toFixed(1), sealType);
+      document.getElementById('calcDetail').textContent = ` ${detail}`;
+    }
+  </script>
 </body>
 </html>
