@@ -604,8 +604,12 @@
             <input type="number" id="openingHeight" value="150" min="0" />
           </div>
           <div class="form-group">
-            <label id="labelFrameWidth">Fill Width - Frame Around (mm)</label>
-            <input type="number" id="frameWidth" value="20" min="0" />
+            <label id="labelPipeDiameterRect">Pipe Diameter (mm)</label>
+            <input type="number" id="pipeDiameterRect" value="100" min="0" />
+          </div>
+          <div class="form-group">
+            <label id="labelInsulationRect">Insulation Thickness (mm)</label>
+            <input type="number" id="insulationThicknessRect" value="30" min="0" />
           </div>
         </div>
 
@@ -670,16 +674,12 @@
               Intermediate Calculations (rectangular)
             </h3>
             <div class="result-item">
-              <div class="result-label" id="labelOuterWidth">Outer Width with Fill</div>
-              <div class="result-value" id="outerWidth">0<span class="result-unit">mm</span></div>
+              <div class="result-label" id="labelOpeningVolume">Opening volume (W×H×depth)</div>
+              <div class="result-value" id="openingVolume">0<span class="result-unit">ml</span></div>
             </div>
             <div class="result-item">
-              <div class="result-label" id="labelOuterHeight">Outer Height with Fill</div>
-              <div class="result-value" id="outerHeight">0<span class="result-unit">mm</span></div>
-            </div>
-            <div class="result-item">
-              <div class="result-label" id="labelFrameArea">Frame Area</div>
-              <div class="result-value" id="frameArea">0<span class="result-unit">mm²</span></div>
+              <div class="result-label" id="labelOccupiedVolume">Pipe + insulation volume</div>
+              <div class="result-value" id="occupiedVolume">0<span class="result-unit">ml</span></div>
             </div>
           </div>
 
@@ -749,7 +749,8 @@
         titleRectangular: '▭ Rectangular Opening Parameters',
         labelOpeningWidth: 'Opening Width (mm)',
         labelOpeningHeight: 'Opening Height (mm)',
-        labelFrameWidth: 'Fill Width - Frame Around (mm)',
+        labelPipeDiameterRect: 'Pipe Diameter (mm)',
+        labelInsulationRect: 'Insulation Thickness (mm)',
 
         labelSealType: 'Seal Type',
         labelSingle: 'Single-sided',
@@ -765,7 +766,8 @@
         calcTitleRectangular: 'Intermediate Calculations (rectangular)',
         labelOuterWidth: 'Outer Width with Fill',
         labelOuterHeight: 'Outer Height with Fill',
-        labelFrameArea: 'Frame Area',
+        labelOpeningVolume: 'Opening volume (W×H×depth)',
+        labelOccupiedVolume: 'Pipe + insulation volume',
 
         labelVolumeOne: 'Volume per Penetration',
         labelTotalConsumption: '✅ Total Sealant Consumption',
@@ -815,7 +817,8 @@
         titleRectangular: '▭ Parametry obdélníkového otvoru',
         labelOpeningWidth: 'Šířka otvoru (mm)',
         labelOpeningHeight: 'Výška otvoru (mm)',
-        labelFrameWidth: 'Šířka výplně - rám kolem (mm)',
+        labelPipeDiameterRect: 'Průměr potrubí (mm)',
+        labelInsulationRect: 'Tloušťka izolace (mm)',
 
         labelSealType: 'Typ ucpávky',
         labelSingle: 'Jednostranná',
@@ -831,7 +834,8 @@
         calcTitleRectangular: 'Mezivýpočty (obdélníkový)',
         labelOuterWidth: 'Vnější šířka s výplní',
         labelOuterHeight: 'Vnější výška s výplní',
-        labelFrameArea: 'Plocha rámu',
+        labelOpeningVolume: 'Objem otvoru (Š×V×hloubka)',
+        labelOccupiedVolume: 'Objem potrubí + izolace',
 
         labelVolumeOne: 'Objem jednoho prostupu',
         labelTotalConsumption: '✅ Celková spotřeba tmelu',
@@ -881,7 +885,8 @@
         titleRectangular: '▭ Parametry otworu prostokątnego',
         labelOpeningWidth: 'Szerokość otworu (mm)',
         labelOpeningHeight: 'Wysokość otworu (mm)',
-        labelFrameWidth: 'Szerokość wypełnienia - ramka (mm)',
+        labelPipeDiameterRect: 'Średnica rury (mm)',
+        labelInsulationRect: 'Grubość izolacji (mm)',
 
         labelSealType: 'Typ uszczelnienia',
         labelSingle: 'Jednostronne',
@@ -897,7 +902,8 @@
         calcTitleRectangular: 'Obliczenia pośrednie (prostokątny)',
         labelOuterWidth: 'Szerokość zewnętrzna z wypełnieniem',
         labelOuterHeight: 'Wysokość zewnętrzna z wypełnieniem',
-        labelFrameArea: 'Pole ramki',
+        labelOpeningVolume: 'Objętość otworu (S×W×głęb.)',
+        labelOccupiedVolume: 'Objętość rury + izolacji',
 
         labelVolumeOne: 'Objętość na jedno przejście',
         labelTotalConsumption: '✅ Całkowite zużycie uszczelniacza',
@@ -947,7 +953,8 @@
         titleRectangular: '▭ Parameters rechthoekige opening',
         labelOpeningWidth: 'Breedte opening (mm)',
         labelOpeningHeight: 'Hoogte opening (mm)',
-        labelFrameWidth: 'Vulbreedte - kader (mm)',
+        labelPipeDiameterRect: 'Buisdiameter (mm)',
+        labelInsulationRect: 'Isolatiedikte (mm)',
 
         labelSealType: 'Type afdichting',
         labelSingle: 'Enkelzijdig',
@@ -963,7 +970,8 @@
         calcTitleRectangular: 'Tussenberekeningen (rechthoekig)',
         labelOuterWidth: 'Buitenbreedte met vulling',
         labelOuterHeight: 'Buitenhoogte met vulling',
-        labelFrameArea: 'Kaderoppervlak',
+        labelOpeningVolume: 'Openingsvolume (B×H×diepte)',
+        labelOccupiedVolume: 'Volume buis + isolatie',
 
         labelVolumeOne: 'Volume per doorvoer',
         labelTotalConsumption: '✅ Totaal kitverbruik',
@@ -1026,7 +1034,8 @@
       document.getElementById('titleRectangular').textContent = t.titleRectangular;
       document.getElementById('labelOpeningWidth').textContent = t.labelOpeningWidth;
       document.getElementById('labelOpeningHeight').textContent = t.labelOpeningHeight;
-      document.getElementById('labelFrameWidth').textContent = t.labelFrameWidth;
+      document.getElementById('labelPipeDiameterRect').textContent = t.labelPipeDiameterRect;
+      document.getElementById('labelInsulationRect').textContent = t.labelInsulationRect;
 
       document.getElementById('labelSealType').textContent = t.labelSealType;
       document.getElementById('labelSingle').textContent = t.labelSingle;
@@ -1043,7 +1052,8 @@
       document.getElementById('calcTitleRectangular').textContent = t.calcTitleRectangular;
       document.getElementById('labelOuterWidth').textContent = t.labelOuterWidth;
       document.getElementById('labelOuterHeight').textContent = t.labelOuterHeight;
-      document.getElementById('labelFrameArea').textContent = t.labelFrameArea;
+      document.getElementById('labelOpeningVolume').textContent = t.labelOpeningVolume;
+      document.getElementById('labelOccupiedVolume').textContent = t.labelOccupiedVolume;
 
       document.getElementById('labelVolumeOne').textContent = t.labelVolumeOne;
       document.getElementById('labelTotalConsumption').textContent = t.labelTotalConsumption;
@@ -1186,20 +1196,38 @@
       } else {
         const w = parseFloat(document.getElementById('openingWidth').value) || 0;
         const h = parseFloat(document.getElementById('openingHeight').value) || 0;
-        const frame = parseFloat(document.getElementById('frameWidth').value) || 0;
+        const pipeD = parseFloat(document.getElementById('pipeDiameterRect').value) || 0;
+        const ins = parseFloat(document.getElementById('insulationThicknessRect').value) || 0;
 
-        const outerW = w + 2 * frame;
-        const outerH = h + 2 * frame;
-        const outerArea = outerW * outerH;
-        const innerArea = w * h;
-        area = outerArea - innerArea;
+        // Rectangular opening: sealant volume = opening volume - (pipe + insulation) volume
+        // occupied area is the circle with outer radius (pipe/2 + insulation)
+        const openingArea = w * h; // mm²
+        const openingVolMm3 = openingArea * depth; // mm³
 
-        document.getElementById('outerWidth').innerHTML = `${outerW.toFixed(1)}<span class="result-unit">mm</span>`;
-        document.getElementById('outerHeight').innerHTML = `${outerH.toFixed(1)}<span class="result-unit">mm</span>`;
-        document.getElementById('frameArea').innerHTML = `${area.toFixed(1)}<span class="result-unit">mm²</span>`;
+        const rOuter = Math.max(0, pipeD / 2 + ins);
+        const occupiedArea = Math.PI * rOuter * rOuter; // mm²
+        const occupiedVolMm3 = occupiedArea * depth; // mm³
+
+        const sealantVolMm3 = Math.max(0, openingVolMm3 - occupiedVolMm3);
+        area = sealantVolMm3 / Math.max(1, depth); // keep 'area' meaningful for later conversion
+
+        // Show intermediate volumes in ml
+        document.getElementById('openingVolume').innerHTML = `${(openingVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`;
+        document.getElementById('occupiedVolume').innerHTML = `${(occupiedVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`;
+
+        // Override volumeOne further down using sealantVolMm3
+        // (set here via a hidden variable on window)
+        window.__rectSealantVolMm3 = sealantVolMm3;
       }
 
-      const volumeOne = (area * depth) / 1000; // mm³ -> ml
+      let volumeOne;
+      if (openingType === 'rectangular' && typeof window.__rectSealantVolMm3 === 'number') {
+        volumeOne = window.__rectSealantVolMm3 / 1000; // mm³ -> ml
+      } else {
+        volumeOne = (area * depth) / 1000; // mm³ -> ml
+      }
+      // clean up
+      delete window.__rectSealantVolMm3;
       const total = volumeOne * count * multiplier;
       const cartridges = Math.ceil(total / 300);
 
