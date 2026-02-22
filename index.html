@@ -555,7 +555,7 @@
             <input type="number" id="annularGap" value="20" min="0" />
             <div class="warn-box hidden" id="circularOpeningLimitInfo" role="note" aria-live="polite" style="margin-top:8px;">
               <strong id="circularOpeningLimitTitle">ℹ️ Note:</strong>
-              <span id="circularOpeningLimitText">For Walraven Pacifyre® G, maximum opening diameter (pipe + insulation + 2× gap) is 250 mm.</span>
+              <span id="circularOpeningLimitText">For Walraven Pacifyre® A/G, maximum opening diameter (pipe + insulation + 2× gap) is 300 mm / 250 mm.</span>
             </div>
           </div>
         </div>
@@ -755,7 +755,7 @@
         pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
 
         circularOpeningLimitTitle: 'ℹ️ Note:',
-        circularOpeningLimitText: 'For Walraven Pacifyre® G, maximum opening diameter (pipe + insulation + 2× gap) is 250 mm.',
+        circularOpeningLimitText: (maxMm) => `For Walraven Pacifyre®, maximum opening diameter (pipe + insulation + 2× gap) is ${maxMm} mm.`,
 
         rectWidthLimitTitle: 'ℹ️ Note:',
         rectWidthLimitText: 'For Walraven Pacifyre® G, maximum opening width is 250 mm.',
@@ -837,7 +837,7 @@
         pipeLimitInfoText: 'Pro Walraven Pacifyre® G je maximální průměr potrubí 50 mm.',
 
         circularOpeningLimitTitle: 'ℹ️ Poznámka:',
-        circularOpeningLimitText: 'Pro Walraven Pacifyre® G je maximální průměr otvoru (potrubí + izolace + 2× mezera) 250 mm.',
+        circularOpeningLimitText: (maxMm) => `Pro Walraven Pacifyre® je maximální průměr otvoru (potrubí + izolace + 2× mezera) ${maxMm} mm.`,
 
         rectWidthLimitTitle: 'ℹ️ Poznámka:',
         rectWidthLimitText: 'Pro Walraven Pacifyre® G je maximální šířka otvoru 250 mm.',
@@ -919,7 +919,7 @@
         pipeLimitInfoText: 'Pre Walraven Pacifyre® G je maximálny priemer potrubia 50 mm.',
 
         circularOpeningLimitTitle: 'ℹ️ Poznámka:',
-        circularOpeningLimitText: 'Pre Walraven Pacifyre® G je maximálny priemer otvoru (potrubie + izolácia + 2× medzera) 250 mm.',
+        circularOpeningLimitText: (maxMm) => `Pre Walraven Pacifyre® je maximálny priemer otvoru (potrubie + izolácia + 2× medzera) ${maxMm} mm.`,
 
         rectWidthLimitTitle: 'ℹ️ Poznámka:',
         rectWidthLimitText: 'Pre Walraven Pacifyre® G je maximálna šírka otvoru 250 mm.',
@@ -1001,7 +1001,7 @@
         pipeLimitInfoText: 'Dla Walraven Pacifyre® G maksymalna średnica rury wynosi 50 mm.',
 
         circularOpeningLimitTitle: 'ℹ️ Uwaga:',
-        circularOpeningLimitText: 'Dla Walraven Pacifyre® G maksymalna średnica otworu (rura + izolacja + 2× szczelina) wynosi 250 mm.',
+        circularOpeningLimitText: (maxMm) => `Dla Walraven Pacifyre® maksymalna średnica otworu (rura + izolacja + 2× szczelina) wynosi ${maxMm} mm.`,
 
         rectWidthLimitTitle: 'ℹ️ Uwaga:',
         rectWidthLimitText: 'Dla Walraven Pacifyre® G maksymalna szerokość otworu wynosi 250 mm.',
@@ -1083,7 +1083,7 @@
         pipeLimitInfoText: 'Voor Walraven Pacifyre® G is de maximale buisdiameter 50 mm.',
 
         circularOpeningLimitTitle: 'ℹ️ Opmerking:',
-        circularOpeningLimitText: 'Voor Walraven Pacifyre® G is de maximale openingsdiameter (buis + isolatie + 2× speling) 250 mm.',
+        circularOpeningLimitText: (maxMm) => `Voor Walraven Pacifyre® is de maximale openingsdiameter (buis + isolatie + 2× speling) ${maxMm} mm.`,
 
         rectWidthLimitTitle: 'ℹ️ Opmerking:',
         rectWidthLimitText: 'Voor Walraven Pacifyre® G is de maximale breedte van de opening 250 mm.',
@@ -1199,7 +1199,7 @@
       setText('pipeLimitInfoTextRect', t.pipeLimitInfoText);
 
       setText('circularOpeningLimitTitle', t.circularOpeningLimitTitle);
-      setText('circularOpeningLimitText',  t.circularOpeningLimitText);
+      // circularOpeningLimitText is set dynamically in enforcePipeLimit (value depends on sealant type)
 
       setText('rectWidthLimitTitle',  t.rectWidthLimitTitle);
       setText('rectWidthLimitText',   t.rectWidthLimitText);
@@ -1292,15 +1292,21 @@
       if (rectWidthWarn)  rectWidthWarn.classList.toggle('hidden',  !isG || wVal <= maxRectDim);
       if (rectHeightWarn) rectHeightWarn.classList.toggle('hidden', !isG || hVal <= maxRectDim);
 
-      // ── 3. Circular opening: warn when total opening Ø > 250 mm ────
+      // ── 3. Circular opening: warn when total opening Ø exceeds limit ────
       //    total Ø  = pipeDiameter + 2×insulation + 2×annularGap  (= d3)
-      const maxCircDiam = 250;
+      //    Pacifyre A → max 300 mm | Pacifyre G → max 250 mm
+      const maxCircDiam = isG ? 250 : 300;
       const pipeD = parseFloat(getEl('pipeDiameter')?.value) || 0;
       const ins   = parseFloat(getEl('insulationThickness')?.value) || 0;
       const gap   = parseFloat(getEl('annularGap')?.value) || 0;
       const totalCircDiam = pipeD + 2 * ins + 2 * gap;
       const circOpeningWarn = getEl('circularOpeningLimitInfo');
-      if (circOpeningWarn) circOpeningWarn.classList.toggle('hidden', !isG || totalCircDiam <= maxCircDiam);
+      if (circOpeningWarn) {
+        circOpeningWarn.classList.toggle('hidden', totalCircDiam <= maxCircDiam);
+        // Update the text dynamically so it always shows the correct limit for the selected sealant
+        const t = translations[currentLang] || translations.en;
+        setText('circularOpeningLimitText', t.circularOpeningLimitText(maxCircDiam));
+      }
     }
 
     // ─────────────────────────────────────────────────────────────
