@@ -577,6 +577,10 @@
           <div class="form-group">
             <label id="labelPipeDiameterRect">Pipe Diameter (mm)</label>
             <input type="number" id="pipeDiameterRect" value="100" min="0" />
+            <div class="warn-box hidden" id="pipeLimitInfoRect" role="note" aria-live="polite" style="margin-top:8px;">
+              <strong id="pipeLimitInfoTitleRect">ℹ️ Note:</strong>
+              <span id="pipeLimitInfoTextRect">For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.</span>
+            </div>
           </div>
           <div class="form-group">
             <label id="labelInsulationRect">Insulation Thickness (mm)</label>
@@ -708,28 +712,10 @@
 
   <script>
     const translations = {
-      en: {
-        langLabel: 'Language',
-        topBarText: 'Multinational with a heart | Since 1942',
-        appTitle: 'Walraven Pacifyre® Calculator',
-        heroTitle: '🔥 Walraven Pacifyre® Sealant Calculator',
-        heroSubtitle: 'Fire sealant consumption calculation for wall and floor penetrations',
-        inputsTitle: 'Input Parameters',
-        resultsTitle: 'Calculation Results',
+      $1
 
-        labelSealantType: 'Sealant Type',
-        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
-        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
-
-        labelDepth: 'Fill Depth (fixed: A = 10 mm, G = 25 mm)',
-        labelOpeningType: 'Opening Type',
-        labelCircular: 'Circular',
-        labelRectangular: 'Rectangular',
-
-        titleCircular: '⭕ Circular Opening Parameters',
-        labelPipeDiameter: 'Pipe Diameter (mm)',
-        labelInsulation: 'Insulation Thickness (mm)',
-        labelAnnularGap: 'Annular Gap Width (mm)',
+        pipeLimitInfoTitle: 'ℹ️ Note:',
+        pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
 
         pipeLimitInfoTitle: 'ℹ️ Note:',
         pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
@@ -781,28 +767,10 @@
         },
       },
 
-      cs: {
-        langLabel: 'Jazyk',
-        topBarText: 'Multinational with a heart | Since 1942',
-        appTitle: 'Kalkulačka Walraven Pacifyre®',
-        heroTitle: '🔥 Kalkulačka spotřeby tmelu Walraven Pacifyre®',
-        heroSubtitle: 'Výpočet spotřeby protipožárního tmelu pro prostupy stěnami a stropy',
-        inputsTitle: 'Vstupní údaje',
-        resultsTitle: 'Výsledky výpočtu',
+      $1
 
-        labelSealantType: 'Typ tmelu',
-        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
-        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
-
-        labelDepth: 'Hloubka vyplnění (pevná: A = 10 mm, G = 25 mm)',
-        labelOpeningType: 'Typ otvoru',
-        labelCircular: 'Kruhový',
-        labelRectangular: 'Obdélníkový',
-
-        titleCircular: '⭕ Parametry kruhového otvoru',
-        labelPipeDiameter: 'Průměr potrubí (mm)',
-        labelInsulation: 'Tloušťka izolace (mm)',
-        labelAnnularGap: 'Šířka výplně mezikruží (mm)',
+        pipeLimitInfoTitle: 'ℹ️ Poznámka:',
+        pipeLimitInfoText: 'Pro Walraven Pacifyre® G je maximální průměr potrubí 50 mm.',
 
         titleRectangular: '▭ Parametry obdélníkového otvoru',
         labelOpeningWidth: 'Šířka otvoru (mm)',
@@ -851,28 +819,10 @@
         },
       },
 
-      sk: {
-        langLabel: 'Jazyk',
-        topBarText: 'Multinational with a heart | Since 1942',
-        appTitle: 'Kalkulačka Walraven Pacifyre®',
-        heroTitle: '🔥 Kalkulačka spotreby tmelu Walraven Pacifyre®',
-        heroSubtitle: 'Výpočet spotreby protipožiarneho tmelu pre prestupy stenami a stropmi',
-        inputsTitle: 'Vstupné údaje',
-        resultsTitle: 'Výsledky výpočtu',
+      $1
 
-        labelSealantType: 'Typ tmelu',
-        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
-        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
-
-        labelDepth: 'Hĺbka vyplnenia (pevná: A = 10 mm, G = 25 mm)',
-        labelOpeningType: 'Typ otvoru',
-        labelCircular: 'Kruhový',
-        labelRectangular: 'Obdĺžnikový',
-
-        titleCircular: '⭕ Parametre kruhového otvoru',
-        labelPipeDiameter: 'Priemer potrubia (mm)',
-        labelInsulation: 'Hrúbka izolácie (mm)',
-        labelAnnularGap: 'Šírka medzikružia (mm)',
+        pipeLimitInfoTitle: 'ℹ️ Poznámka:',
+        pipeLimitInfoText: 'Pre Walraven Pacifyre® G je maximálny priemer potrubia 50 mm.',
 
         titleRectangular: '▭ Parametre obdĺžnikového otvoru',
         labelOpeningWidth: 'Šírka otvoru (mm)',
@@ -921,28 +871,10 @@
         },
       },
 
-      pl: {
-        langLabel: 'Język',
-        topBarText: 'Multinational with a heart | Since 1942',
-        appTitle: 'Kalkulator Walraven Pacifyre®',
-        heroTitle: '🔥 Kalkulator zużycia uszczelniacza Walraven Pacifyre®',
-        heroSubtitle: 'Obliczanie zużycia uszczelniacza ogniochronnego dla przejść przez ściany i stropy',
-        inputsTitle: 'Dane wejściowe',
-        resultsTitle: 'Wyniki obliczeń',
+      $1
 
-        labelSealantType: 'Typ uszczelniacza',
-        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
-        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
-
-        labelDepth: 'Głębokość wypełnienia (stała: A = 10 mm, G = 25 mm)',
-        labelOpeningType: 'Typ otworu',
-        labelCircular: 'Okrągły',
-        labelRectangular: 'Prostokątny',
-
-        titleCircular: '⭕ Parametry otworu okrągłego',
-        labelPipeDiameter: 'Średnica rury (mm)',
-        labelInsulation: 'Grubość izolacji (mm)',
-        labelAnnularGap: 'Szerokość szczeliny pierścieniowej (mm)',
+        pipeLimitInfoTitle: 'ℹ️ Uwaga:',
+        pipeLimitInfoText: 'Dla Walraven Pacifyre® G maksymalna średnica rury wynosi 50 mm.',
 
         titleRectangular: '▭ Parametry otworu prostokątnego',
         labelOpeningWidth: 'Szerokość otworu (mm)',
@@ -991,28 +923,10 @@
         },
       },
 
-      nl: {
-        langLabel: 'Taal',
-        topBarText: 'Multinational with a heart | Since 1942',
-        appTitle: 'Walraven Pacifyre® Calculator',
-        heroTitle: '🔥 Walraven Pacifyre® Kitverbruik Calculator',
-        heroSubtitle: 'Berekening van brandwerend kitverbruik voor doorvoeren in wanden en vloeren',
-        inputsTitle: 'Invoer',
-        resultsTitle: 'Resultaten',
+      $1
 
-        labelSealantType: 'Type kit',
-        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
-        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
-
-        labelDepth: 'Vuldiepte (vast: A = 10 mm, G = 25 mm)',
-        labelOpeningType: 'Type opening',
-        labelCircular: 'Rond',
-        labelRectangular: 'Rechthoekig',
-
-        titleCircular: '⭕ Parameters ronde opening',
-        labelPipeDiameter: 'Buisdiameter (mm)',
-        labelInsulation: 'Isolatiedikte (mm)',
-        labelAnnularGap: 'Breedte ringruimte (mm)',
+        pipeLimitInfoTitle: 'ℹ️ Opmerking:',
+        pipeLimitInfoText: 'Voor Walraven Pacifyre® G is de maximale buisdiameter 50 mm.',
 
         titleRectangular: '▭ Parameters rechthoekige opening',
         labelOpeningWidth: 'Breedte opening (mm)',
@@ -1115,6 +1029,8 @@
       setText('labelAnnularGap', t.labelAnnularGap);
       setText('pipeLimitInfoTitle', t.pipeLimitInfoTitle || 'ℹ️ Note:');
       setText('pipeLimitInfoText', t.pipeLimitInfoText || '');
+      setText('pipeLimitInfoTitleRect', t.pipeLimitInfoTitle || 'ℹ️ Note:');
+      setText('pipeLimitInfoTextRect', t.pipeLimitInfoText || '');
 
       setText('titleRectangular', t.titleRectangular);
       setText('labelOpeningWidth', t.labelOpeningWidth);
@@ -1173,28 +1089,23 @@
 
       const pipeInputs = [$('pipeDiameter'), $('pipeDiameterRect')];
       const infoBox = $('pipeLimitInfo');
+      const infoBoxRect = $('pipeLimitInfoRect');
 
       pipeInputs.forEach((input) => {
         if (!input) return;
 
         if (maxDiameter !== null) {
           input.max = '50';
-          if (parseFloat(input.value) > 50) {
-            input.value = '50';
-          }
+          // Clamp current value if needed
+          if (parseFloat(input.value) > 50) input.value = '50';
         } else {
           input.removeAttribute('max');
         }
       });
 
-      if (infoBox) {
-        infoBox.classList.toggle('hidden', maxDiameter === null);
-      }
-    }
-        } else {
-          input.removeAttribute('max');
-        }
-      });
+      // Show info only when G is selected
+      if (infoBox) infoBox.classList.toggle('hidden', maxDiameter === null);
+      if (infoBoxRect) infoBoxRect.classList.toggle('hidden', maxDiameter === null);
     }
 
     function setDepth() {
@@ -1388,18 +1299,34 @@
         langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
       }
 
+      // Sealant type changes depth + enforces Ø limit
       document.querySelectorAll('input[name="sealantType"]').forEach((r) => r.addEventListener('change', setDepth));
-      document.querySelectorAll('input[name="openingType"]').forEach((r) => r.addEventListener('change', toggleOpeningType));
+
+      // Opening type changes shown sections + recalculates; also re-apply Ø limit for the currently visible input
+      document.querySelectorAll('input[name="openingType"]').forEach((r) => r.addEventListener('change', () => {
+        toggleOpeningType();
+        enforcePipeLimit();
+      }));
+
+      // Seal type affects multiplier
       document.querySelectorAll('input[name="sealType"]').forEach((r) => r.addEventListener('change', calculate));
-      document.querySelectorAll('input[type="number"]').forEach((i) => i.addEventListener('input', calculate));
+
+      // Any numeric input should re-check Ø limit first (so typing >50 while G is selected clamps immediately)
+      document.querySelectorAll('input[type="number"]').forEach((i) =>
+        i.addEventListener('input', () => {
+          enforcePipeLimit();
+          calculate();
+        })
+      );
 
       const toggleBtn = $('toggleDetails');
       if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
 
       // Initialize
-      setDepth();
       setLanguage('en');
+      setDepth();
       toggleOpeningType();
+      enforcePipeLimit();
       calculate();
 
       // Additional self-test for Pacifyre G limit
@@ -1416,7 +1343,3 @@
       // Console tests
       runSelfTests();
     });
-    });
-  </script>
-</body>
-</html>
