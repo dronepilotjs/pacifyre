@@ -548,6 +548,10 @@
           <div class="form-group">
             <label id="labelPipeDiameter">Pipe Diameter (mm)</label>
             <input type="number" id="pipeDiameter" value="100" min="0" />
+            <div class="warn-box hidden" id="pipeLimitInfo" role="note" aria-live="polite" style="margin-top:8px;">
+              <strong id="pipeLimitInfoTitle">ℹ️ Note:</strong>
+              <span id="pipeLimitInfoText">For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.</span>
+            </div>
           </div>
           <div class="form-group">
             <label id="labelInsulation">Insulation Thickness (mm)</label>
@@ -726,6 +730,9 @@
         labelPipeDiameter: 'Pipe Diameter (mm)',
         labelInsulation: 'Insulation Thickness (mm)',
         labelAnnularGap: 'Annular Gap Width (mm)',
+
+        pipeLimitInfoTitle: 'ℹ️ Note:',
+        pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
 
         titleRectangular: '▭ Rectangular Opening Parameters',
         labelOpeningWidth: 'Opening Width (mm)',
@@ -1106,6 +1113,8 @@
       setText('labelPipeDiameter', t.labelPipeDiameter);
       setText('labelInsulation', t.labelInsulation);
       setText('labelAnnularGap', t.labelAnnularGap);
+      setText('pipeLimitInfoTitle', t.pipeLimitInfoTitle || 'ℹ️ Note:');
+      setText('pipeLimitInfoText', t.pipeLimitInfoText || '');
 
       setText('titleRectangular', t.titleRectangular);
       setText('labelOpeningWidth', t.labelOpeningWidth);
@@ -1158,11 +1167,43 @@
       calculate();
     }
 
+    function enforcePipeLimit() {
+      const sealantType = document.querySelector('input[name="sealantType"]:checked')?.value || 'A';
+      const maxDiameter = sealantType === 'G' ? 50 : null;
+
+      const pipeInputs = [$('pipeDiameter'), $('pipeDiameterRect')];
+      const infoBox = $('pipeLimitInfo');
+
+      pipeInputs.forEach((input) => {
+        if (!input) return;
+
+        if (maxDiameter !== null) {
+          input.max = '50';
+          if (parseFloat(input.value) > 50) {
+            input.value = '50';
+          }
+        } else {
+          input.removeAttribute('max');
+        }
+      });
+
+      if (infoBox) {
+        infoBox.classList.toggle('hidden', maxDiameter === null);
+      }
+    }
+        } else {
+          input.removeAttribute('max');
+        }
+      });
+    }
+
     function setDepth() {
       const sealantType = document.querySelector('input[name="sealantType"]:checked')?.value || 'A';
       const depth = sealantType === 'A' ? 10 : 25;
       const depthEl = $('depth');
       if (depthEl) depthEl.value = String(depth);
+
+      enforcePipeLimit();
       calculate();
     }
 
@@ -1361,8 +1402,20 @@
       toggleOpeningType();
       calculate();
 
+      // Additional self-test for Pacifyre G limit
+      const sealG = $('sealantG');
+      const pipe = $('pipeDiameter');
+      if (sealG && pipe) {
+        sealG.checked = true;
+        setDepth();
+        pipe.value = '120';
+        enforcePipeLimit();
+        console.assert(parseFloat(pipe.value) <= 50, 'Pacifyre G must limit pipe diameter to max 50 mm');
+      }
+
       // Console tests
       runSelfTests();
+    });
     });
   </script>
 </body>
