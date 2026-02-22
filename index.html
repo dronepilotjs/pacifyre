@@ -1513,12 +1513,29 @@
     }
 
     // ─────────────────────────────────────────────────────────────
+    // BROWSER LANGUAGE DETECTION
+    // navigator.languages returns ordered list e.g. ['cs-CZ', 'cs', 'en-US', 'en']
+    // We check the base language code (first two chars) against available keys.
+    // If no match is found, fall back to 'en'.
+    // ─────────────────────────────────────────────────────────────
+    function detectBrowserLanguage() {
+      const supported = Object.keys(translations); // ['en','cs','sk','pl','nl']
+      const preferred = navigator.languages?.length ? navigator.languages : [navigator.language || 'en'];
+      for (const lang of preferred) {
+        const code = lang.slice(0, 2).toLowerCase();
+        if (supported.includes(code)) return code;
+      }
+      return 'en';
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // INIT
     // ─────────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
+      const initialLang = detectBrowserLanguage();
       const langSelect = getEl('langSelect');
       if (langSelect) {
-        langSelect.value = 'en';
+        langSelect.value = initialLang;
         langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
       }
 
@@ -1547,8 +1564,8 @@
       const toggleBtn = getEl('toggleDetails');
       if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
 
-      // Initialize UI
-      setLanguage('en');
+      // Initialize UI with detected language
+      setLanguage(initialLang);
       setDepth();
       toggleOpeningType();
       enforcePipeLimit();
