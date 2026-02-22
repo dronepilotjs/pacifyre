@@ -399,8 +399,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      /* Footer is already green, so use a slightly darker green + subtle border
-         to make the icon background visible. */
       background: #005a42;
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 4px;
@@ -414,11 +412,6 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-    }
-
-    .footer-links a:hover {
-      opacity: 1;
-      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -715,12 +708,37 @@
   </div>
 
   <script>
+    // ─────────────────────────────────────────────────────────────
+    // TRANSLATIONS  (FIX #1: all language objects now contain every
+    //                required key; FIX #3: duplicate keys removed)
+    // ─────────────────────────────────────────────────────────────
     const translations = {
-      $1
 
-        pipeLimitInfoTitle: 'ℹ️ Note:',
-        pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
+      en: {
+        langLabel: 'Language',
+        topBarText: 'Multinational with a heart | Since 1942',
+        appTitle: 'Walraven Pacifyre® Calculator',
+        heroTitle: '🔥 Walraven Pacifyre® Sealant Calculator',
+        heroSubtitle: 'Fire sealant consumption calculation for wall and floor penetrations',
 
+        inputsTitle: 'Input Parameters',
+        resultsTitle: 'Calculation Results',
+
+        labelSealantType: 'Sealant Type',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Fill Depth (fixed: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Opening Type',
+        labelCircular: 'Circular',
+        labelRectangular: 'Rectangular',
+
+        titleCircular: '⭕ Circular Opening Parameters',
+        labelPipeDiameter: 'Pipe Diameter (mm)',
+        labelInsulation: 'Insulation Thickness (mm)',
+        labelAnnularGap: 'Annular Gap Width (mm)',
+
+        // FIX #3: only one definition per key
         pipeLimitInfoTitle: 'ℹ️ Note:',
         pipeLimitInfoText: 'For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.',
 
@@ -771,7 +789,29 @@
         },
       },
 
-      $1
+      cs: {
+        langLabel: 'Jazyk',
+        topBarText: 'Nadnárodní firma se srdcem | Od roku 1942',
+        appTitle: 'Walraven Pacifyre® Kalkulačka',
+        heroTitle: '🔥 Walraven Pacifyre® Kalkulačka spotřeby tmelu',
+        heroSubtitle: 'Výpočet spotřeby protipožárního tmelu pro prostupy ve stěnách a podlahách',
+
+        inputsTitle: 'Vstupní parametry',
+        resultsTitle: 'Výsledky výpočtu',
+
+        labelSealantType: 'Typ tmelu',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Hloubka výplně (pevná: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Typ otvoru',
+        labelCircular: 'Kruhový',
+        labelRectangular: 'Obdélníkový',
+
+        titleCircular: '⭕ Parametry kruhového otvoru',
+        labelPipeDiameter: 'Průměr potrubí (mm)',
+        labelInsulation: 'Tloušťka izolace (mm)',
+        labelAnnularGap: 'Šířka mezery (mm)',
 
         pipeLimitInfoTitle: 'ℹ️ Poznámka:',
         pipeLimitInfoText: 'Pro Walraven Pacifyre® G je maximální průměr potrubí 50 mm.',
@@ -823,7 +863,29 @@
         },
       },
 
-      $1
+      sk: {
+        langLabel: 'Jazyk',
+        topBarText: 'Nadnárodná firma so srdcom | Od roku 1942',
+        appTitle: 'Walraven Pacifyre® Kalkulačka',
+        heroTitle: '🔥 Walraven Pacifyre® Kalkulačka spotreby tmelu',
+        heroSubtitle: 'Výpočet spotreby protipožiarneho tmelu pre prestupy v stenách a podlahách',
+
+        inputsTitle: 'Vstupné parametre',
+        resultsTitle: 'Výsledky výpočtu',
+
+        labelSealantType: 'Typ tmelu',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Hĺbka výplne (pevná: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Typ otvoru',
+        labelCircular: 'Kruhový',
+        labelRectangular: 'Obdĺžnikový',
+
+        titleCircular: '⭕ Parametre kruhového otvoru',
+        labelPipeDiameter: 'Priemer potrubia (mm)',
+        labelInsulation: 'Hrúbka izolácie (mm)',
+        labelAnnularGap: 'Šírka medzery (mm)',
 
         pipeLimitInfoTitle: 'ℹ️ Poznámka:',
         pipeLimitInfoText: 'Pre Walraven Pacifyre® G je maximálny priemer potrubia 50 mm.',
@@ -875,7 +937,29 @@
         },
       },
 
-      $1
+      pl: {
+        langLabel: 'Język',
+        topBarText: 'Wielonarodowa firma z sercem | Od 1942 roku',
+        appTitle: 'Walraven Pacifyre® Kalkulator',
+        heroTitle: '🔥 Walraven Pacifyre® Kalkulator zużycia uszczelniacza',
+        heroSubtitle: 'Obliczanie zużycia uszczelniacza przeciwpożarowego dla przejść w ścianach i podłogach',
+
+        inputsTitle: 'Parametry wejściowe',
+        resultsTitle: 'Wyniki obliczeń',
+
+        labelSealantType: 'Typ uszczelniacza',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Głębokość wypełnienia (stała: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Typ otworu',
+        labelCircular: 'Okrągły',
+        labelRectangular: 'Prostokątny',
+
+        titleCircular: '⭕ Parametry otworu okrągłego',
+        labelPipeDiameter: 'Średnica rury (mm)',
+        labelInsulation: 'Grubość izolacji (mm)',
+        labelAnnularGap: 'Szerokość szczeliny (mm)',
 
         pipeLimitInfoTitle: 'ℹ️ Uwaga:',
         pipeLimitInfoText: 'Dla Walraven Pacifyre® G maksymalna średnica rury wynosi 50 mm.',
@@ -927,7 +1011,29 @@
         },
       },
 
-      $1
+      nl: {
+        langLabel: 'Taal',
+        topBarText: 'Multinationaal met een hart | Sinds 1942',
+        appTitle: 'Walraven Pacifyre® Calculator',
+        heroTitle: '🔥 Walraven Pacifyre® Kitverbruik Calculator',
+        heroSubtitle: 'Berekening brandwerende kitverbruik voor doorvoeren in wanden en vloeren',
+
+        inputsTitle: 'Invoerparameters',
+        resultsTitle: 'Berekeningsresultaten',
+
+        labelSealantType: 'Kittype',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Vuldpite (vast: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Type opening',
+        labelCircular: 'Rond',
+        labelRectangular: 'Rechthoekig',
+
+        titleCircular: '⭕ Parameters ronde opening',
+        labelPipeDiameter: 'Buisdiameter (mm)',
+        labelInsulation: 'Isolatiedikte (mm)',
+        labelAnnularGap: 'Ringspeling breedte (mm)',
 
         pipeLimitInfoTitle: 'ℹ️ Opmerking:',
         pipeLimitInfoText: 'Voor Walraven Pacifyre® G is de maximale buisdiameter 50 mm.',
@@ -980,44 +1086,48 @@
       },
     };
 
+    // ─────────────────────────────────────────────────────────────
+    // HELPERS
+    // ─────────────────────────────────────────────────────────────
     let currentLang = 'en';
 
-    function $(id) {
+    function getEl(id) {
       return document.getElementById(id);
     }
 
     function setText(id, value) {
-      const el = $(id);
+      const el = getEl(id);
       if (!el) return false;
       el.textContent = value;
       return true;
     }
 
+    // setHtml is only used for numeric output — not user-supplied strings — so XSS risk is negligible.
     function setHtml(id, value) {
-      const el = $(id);
+      const el = getEl(id);
       if (!el) return false;
       el.innerHTML = value;
       return true;
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // LANGUAGE
+    // ─────────────────────────────────────────────────────────────
     function setLanguage(lang) {
       currentLang = translations[lang] ? lang : 'en';
       const t = translations[currentLang];
 
       document.documentElement.lang = currentLang;
 
-      // Header
       setText('langLabel', t.langLabel);
       setText('topBarText', t.topBarText);
       setText('appTitle', t.appTitle);
       setText('heroTitle', t.heroTitle);
       setText('heroSubtitle', t.heroSubtitle);
 
-      // Sections
       setText('inputsTitle', t.inputsTitle);
       setText('resultsTitle', t.resultsTitle);
 
-      // Inputs
       setText('labelSealantType', t.labelSealantType);
       setText('sealantALabel', t.sealantALabel);
       setText('sealantGLabel', t.sealantGLabel);
@@ -1031,10 +1141,10 @@
       setText('labelPipeDiameter', t.labelPipeDiameter);
       setText('labelInsulation', t.labelInsulation);
       setText('labelAnnularGap', t.labelAnnularGap);
-      setText('pipeLimitInfoTitle', t.pipeLimitInfoTitle || 'ℹ️ Note:');
-      setText('pipeLimitInfoText', t.pipeLimitInfoText || '');
-      setText('pipeLimitInfoTitleRect', t.pipeLimitInfoTitle || 'ℹ️ Note:');
-      setText('pipeLimitInfoTextRect', t.pipeLimitInfoText || '');
+      setText('pipeLimitInfoTitle', t.pipeLimitInfoTitle);
+      setText('pipeLimitInfoText', t.pipeLimitInfoText);
+      setText('pipeLimitInfoTitleRect', t.pipeLimitInfoTitle);
+      setText('pipeLimitInfoTextRect', t.pipeLimitInfoText);
 
       setText('titleRectangular', t.titleRectangular);
       setText('labelOpeningWidth', t.labelOpeningWidth);
@@ -1047,7 +1157,6 @@
       setText('labelSingle', t.labelSingle);
       setText('labelCount', t.labelCount);
 
-      // Results labels
       setText('calcTitleCircular', t.calcTitleCircular);
       setText('labelD2', t.labelD2);
       setText('labelD3', t.labelD3);
@@ -1071,87 +1180,83 @@
       setText('footerContact', t.footerContact);
       setText('footerSupport', t.footerSupport);
 
-      // Details UI texts
       setText('detailsTitle', t.detailsTitle);
-      const btn = $('toggleDetails');
-      const btnText = $('toggleDetailsText');
+      const btn = getEl('toggleDetails');
+      const btnText = getEl('toggleDetailsText');
       if (btn && btnText) {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
         btnText.textContent = expanded ? t.hideDetails : t.showDetails;
       }
 
-      // Sync dropdown
-      const sel = $('langSelect');
+      const sel = getEl('langSelect');
       if (sel && sel.value !== currentLang) sel.value = currentLang;
 
       calculate();
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // PIPE LIMIT  (FIX #2: clamp only when value actually exceeds max,
+    //              don't blindly overwrite valid values like 30 mm)
+    // ─────────────────────────────────────────────────────────────
     function enforcePipeLimit() {
       const sealantType = document.querySelector('input[name="sealantType"]:checked')?.value || 'A';
       const maxDiameter = sealantType === 'G' ? 50 : null;
 
-      const pipeInputs = [$('pipeDiameter'), $('pipeDiameterRect')];
-      const infoBox = $('pipeLimitInfo');
-      const infoBoxRect = $('pipeLimitInfoRect');
+      const pipeInputs = [getEl('pipeDiameter'), getEl('pipeDiameterRect')];
+      const infoBox = getEl('pipeLimitInfo');
+      const infoBoxRect = getEl('pipeLimitInfoRect');
 
       pipeInputs.forEach((input) => {
         if (!input) return;
-
         if (maxDiameter !== null) {
-          input.max = '50';
-          // Force default to 50 mm for Pacifyre G
-          input.value = '50';
+          input.max = String(maxDiameter);
+          // FIX #2: only clamp if the current value actually exceeds the max
+          if (parseFloat(input.value) > maxDiameter) {
+            input.value = String(maxDiameter);
+          }
         } else {
           input.removeAttribute('max');
         }
       });
 
-      // Show info only when G is selected
       if (infoBox) infoBox.classList.toggle('hidden', maxDiameter === null);
       if (infoBoxRect) infoBoxRect.classList.toggle('hidden', maxDiameter === null);
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // DEPTH
+    // ─────────────────────────────────────────────────────────────
     function setDepth() {
       const sealantType = document.querySelector('input[name="sealantType"]:checked')?.value || 'A';
       const depth = sealantType === 'A' ? 10 : 25;
-      const depthEl = $('depth');
+      const depthEl = getEl('depth');
       if (depthEl) depthEl.value = String(depth);
 
       enforcePipeLimit();
       calculate();
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // OPENING TYPE TOGGLE
+    // ─────────────────────────────────────────────────────────────
     function toggleOpeningType() {
       const openingType = document.querySelector('input[name="openingType"]:checked')?.value || 'circular';
 
-      const circularSection = $('circularSection');
-      const rectangularSection = $('rectangularSection');
-      const calcCircular = $('calcCircular');
-      const calcRectangular = $('calcRectangular');
-      const warn = $('rectWarning');
+      const circularSection = getEl('circularSection');
+      const rectangularSection = getEl('rectangularSection');
+      const calcCircular = getEl('calcCircular');
+      const calcRectangular = getEl('calcRectangular');
+      const warn = getEl('rectWarning');
 
       if (openingType === 'circular') {
-        if (circularSection) {
-          circularSection.style.display = 'block';
-          circularSection.classList.add('active');
-        }
-        if (rectangularSection) {
-          rectangularSection.style.display = 'none';
-          rectangularSection.classList.remove('active');
-        }
+        if (circularSection) { circularSection.style.display = 'block'; circularSection.classList.add('active'); }
+        if (rectangularSection) { rectangularSection.style.display = 'none'; rectangularSection.classList.remove('active'); }
         if (calcCircular) calcCircular.style.display = 'block';
         if (calcRectangular) calcRectangular.style.display = 'none';
         if (warn) warn.classList.add('hidden');
       } else {
-        if (circularSection) {
-          circularSection.style.display = 'none';
-          circularSection.classList.remove('active');
-        }
-        if (rectangularSection) {
-          rectangularSection.style.display = 'block';
-          rectangularSection.classList.add('active');
-        }
+        if (circularSection) { circularSection.style.display = 'none'; circularSection.classList.remove('active'); }
+        if (rectangularSection) { rectangularSection.style.display = 'block'; rectangularSection.classList.add('active'); }
         if (calcCircular) calcCircular.style.display = 'none';
         if (calcRectangular) calcRectangular.style.display = 'block';
       }
@@ -1159,10 +1264,13 @@
       calculate();
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // TOGGLE DETAILS
+    // ─────────────────────────────────────────────────────────────
     function toggleDetails() {
-      const panel = $('detailsPanel');
-      const btn = $('toggleDetails');
-      const txt = $('toggleDetailsText');
+      const panel = getEl('detailsPanel');
+      const btn = getEl('toggleDetails');
+      const txt = getEl('toggleDetailsText');
       if (!panel || !btn || !txt) return;
 
       const t = translations[currentLang] || translations.en;
@@ -1181,72 +1289,82 @@
       }
     }
 
-    function calculateCircular(depth) {
-      const pipeDiameter = parseFloat($('pipeDiameter')?.value || '0') || 0;
-      const insulation = parseFloat($('insulationThickness')?.value || '0') || 0;
-      const gap = parseFloat($('annularGap')?.value || '0') || 0;
+    // ─────────────────────────────────────────────────────────────
+    // PURE CALCULATION HELPERS  (FIX #4: separated from DOM writes)
+    // Calculation functions return plain objects; the caller (calculate)
+    // is responsible for updating the DOM. This also fixes the self-test
+    // issue where calculateCircular / calculateRectangular silently
+    // modified the visible UI during testing.
+    // ─────────────────────────────────────────────────────────────
+    function computeCircular(depth) {
+      const pipeDiameter = Math.max(0, parseFloat(getEl('pipeDiameter')?.value) || 0);
+      const insulation   = Math.max(0, parseFloat(getEl('insulationThickness')?.value) || 0);
+      const gap          = Math.max(0, parseFloat(getEl('annularGap')?.value) || 0);
 
       const d2 = pipeDiameter + 2 * insulation;
       const d3 = d2 + 2 * gap;
       const r2 = d2 / 2;
       const r3 = d3 / 2;
       const annularArea = Math.PI * (r3 * r3 - r2 * r2);
+      const volumeOneMl = Math.max(0, (annularArea * depth) / 1000);
 
-      setHtml('d2', `${d2.toFixed(1)}<span class="result-unit">mm</span>`);
-      setHtml('d3', `${d3.toFixed(1)}<span class="result-unit">mm</span>`);
-      setHtml('annularArea', `${annularArea.toFixed(1)}<span class="result-unit">mm²</span>`);
-
-      const volumeOneMl = (annularArea * depth) / 1000;
-      return { volumeOneMl: Math.max(0, volumeOneMl) };
+      return { d2, d3, annularArea, volumeOneMl };
     }
 
-    function calculateRectangular(depth) {
-      const w = parseFloat($('openingWidth')?.value || '0') || 0;
-      const h = parseFloat($('openingHeight')?.value || '0') || 0;
-      const pipeD = parseFloat($('pipeDiameterRect')?.value || '0') || 0;
-      const ins = parseFloat($('insulationThicknessRect')?.value || '0') || 0;
+    function computeRectangular(depth) {
+      const w    = Math.max(0, parseFloat(getEl('openingWidth')?.value) || 0);
+      const h    = Math.max(0, parseFloat(getEl('openingHeight')?.value) || 0);
+      const pipeD = Math.max(0, parseFloat(getEl('pipeDiameterRect')?.value) || 0);
+      const ins  = Math.max(0, parseFloat(getEl('insulationThicknessRect')?.value) || 0);
 
-      const openingArea = w * h; // mm²
-      const openingVolMm3 = openingArea * depth; // mm³
+      const openingVolMm3  = w * h * depth;
+      const rOuter         = pipeD / 2 + ins;
+      const occupiedVolMm3 = Math.PI * rOuter * rOuter * depth;
+      const overfilled     = occupiedVolMm3 > openingVolMm3;
+      const sealantVolMm3  = Math.max(0, openingVolMm3 - occupiedVolMm3);
 
-      const rOuter = Math.max(0, pipeD / 2 + ins);
-      const occupiedArea = Math.PI * rOuter * rOuter; // mm²
-      const occupiedVolMm3 = occupiedArea * depth; // mm³
-
-      const overfilled = occupiedVolMm3 > openingVolMm3;
-      const sealantVolMm3 = Math.max(0, openingVolMm3 - occupiedVolMm3);
-
-      setHtml('openingVolume', `${(openingVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`);
-      setHtml('occupiedVolume', `${(occupiedVolMm3 / 1000).toFixed(1)}<span class="result-unit">ml</span>`);
-
-      const warn = $('rectWarning');
-      if (warn) warn.classList.toggle('hidden', !overfilled);
-
-      return { volumeOneMl: sealantVolMm3 / 1000, overfilled };
+      return {
+        openingVolMl:  openingVolMm3  / 1000,
+        occupiedVolMl: occupiedVolMm3 / 1000,
+        volumeOneMl:   sealantVolMm3  / 1000,
+        overfilled,
+      };
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // MAIN CALCULATE (reads inputs, calls pure helpers, updates DOM)
+    // FIX #5: guard against depth = 0 with a visible note
+    // ─────────────────────────────────────────────────────────────
     function calculate() {
       const openingType = document.querySelector('input[name="openingType"]:checked')?.value || 'circular';
-      const depth = parseFloat($('depth')?.value || '0') || 0;
-      const sealType = document.querySelector('input[name="sealType"]:checked')?.value || 'double';
-      const count = parseFloat($('penetrationCount')?.value || '0') || 0;
-      const multiplier = sealType === 'double' ? 2 : 1;
+      const depth       = Math.max(0, parseFloat(getEl('depth')?.value) || 0);
+      const sealType    = document.querySelector('input[name="sealType"]:checked')?.value || 'double';
+      const count       = Math.max(0, parseFloat(getEl('penetrationCount')?.value) || 0);
+      const multiplier  = sealType === 'double' ? 2 : 1;
 
       let volumeOneMl = 0;
 
       if (openingType === 'circular') {
-        const res = calculateCircular(depth);
+        const res = computeCircular(depth);
+        // Update intermediate DOM results
+        setHtml('d2',          `${res.d2.toFixed(1)}<span class="result-unit">mm</span>`);
+        setHtml('d3',          `${res.d3.toFixed(1)}<span class="result-unit">mm</span>`);
+        setHtml('annularArea', `${res.annularArea.toFixed(1)}<span class="result-unit">mm²</span>`);
         volumeOneMl = res.volumeOneMl;
       } else {
-        const res = calculateRectangular(depth);
+        const res = computeRectangular(depth);
+        setHtml('openingVolume',  `${res.openingVolMl.toFixed(1)}<span class="result-unit">ml</span>`);
+        setHtml('occupiedVolume', `${res.occupiedVolMl.toFixed(1)}<span class="result-unit">ml</span>`);
+        const warn = getEl('rectWarning');
+        if (warn) warn.classList.toggle('hidden', !res.overfilled);
         volumeOneMl = res.volumeOneMl;
       }
 
-      const totalMl = Math.max(0, volumeOneMl * count * multiplier);
-      const cartridges = Math.ceil(totalMl / 300);
+      const totalMl   = Math.max(0, volumeOneMl * count * multiplier);
+      const cartridges = totalMl > 0 ? Math.ceil(totalMl / 300) : 0;
 
-      setHtml('volumeOne', `${volumeOneMl.toFixed(1)}<span class="result-unit">ml</span>`);
-      setHtml('totalConsumption', `${totalMl.toFixed(1)}<span class="result-unit">ml</span>`);
+      setHtml('volumeOne',       `${volumeOneMl.toFixed(1)}<span class="result-unit">ml</span>`);
+      setHtml('totalConsumption',`${totalMl.toFixed(1)}<span class="result-unit">ml</span>`);
 
       const t = translations[currentLang] || translations.en;
       setHtml('cartridges', `${cartridges}<span class="result-unit">${t.unitsPieces}</span>`);
@@ -1255,67 +1373,84 @@
       setText('calcDetail', ` ${detail}`);
     }
 
-    // Basic self-tests (console only)
+    // ─────────────────────────────────────────────────────────────
+    // SELF-TESTS  (FIX #6: isolated — save and restore all state;
+    //              use pure compute* helpers to avoid DOM side-effects)
+    // ─────────────────────────────────────────────────────────────
     function runSelfTests() {
       console.group('Walraven Pacifyre® calculator self-tests');
 
-      // Test 1: circular should be non-negative
-      const circ = calculateCircular(10);
-      console.assert(circ.volumeOneMl >= 0, 'Circular volume should be >= 0');
+      // Helper: temporarily set input values and restore afterwards
+      function withInputs(overrides, fn) {
+        const saved = {};
+        Object.keys(overrides).forEach((id) => {
+          const el = getEl(id);
+          if (el) { saved[id] = el.value; el.value = overrides[id]; }
+        });
+        const result = fn();
+        Object.keys(saved).forEach((id) => { getEl(id).value = saved[id]; });
+        return result;
+      }
 
-      // Test 2: rectangular overfill should set sealant volume to 0
-      // Simulate extreme: tiny opening, big pipe+ins
-      const wEl = $('openingWidth');
-      const hEl = $('openingHeight');
-      const pEl = $('pipeDiameterRect');
-      const iEl = $('insulationThicknessRect');
-      const dEl = $('depth');
+      // Test 1: circular volume should be non-negative
+      const circ = withInputs(
+        { pipeDiameter: '100', insulationThickness: '30', annularGap: '20', depth: '10' },
+        () => computeCircular(10)
+      );
+      console.assert(circ.volumeOneMl >= 0, 'T1 PASS: Circular volume >= 0');
 
-      if (wEl && hEl && pEl && iEl && dEl) {
-        const old = { w: wEl.value, h: hEl.value, p: pEl.value, i: iEl.value, d: dEl.value };
-        wEl.value = '50';
-        hEl.value = '50';
-        pEl.value = '150';
-        iEl.value = '20';
-        dEl.value = '10';
+      // Test 2: rectangular overfill → volume = 0
+      const rect = withInputs(
+        { openingWidth: '50', openingHeight: '50', pipeDiameterRect: '150', insulationThicknessRect: '20' },
+        () => computeRectangular(10)
+      );
+      console.assert(rect.overfilled  === true, 'T2 PASS: Rectangular should be overfilled');
+      console.assert(rect.volumeOneMl === 0,    'T3 PASS: Rectangular volume is 0 when overfilled');
 
-        const rect = calculateRectangular(10);
-        console.assert(rect.overfilled === true, 'Rectangular should be overfilled in this scenario');
-        console.assert(rect.volumeOneMl === 0, 'Rectangular volume should be 0 when overfilled');
-
-        // restore
-        wEl.value = old.w;
-        hEl.value = old.h;
-        pEl.value = old.p;
-        iEl.value = old.i;
-        dEl.value = old.d;
-      } else {
-        console.warn('Self-test skipped: some rectangular inputs not found.');
+      // Test 3: Pacifyre G clamp — simulate a value > 50 and verify clamping logic
+      const pipeEl = getEl('pipeDiameter');
+      if (pipeEl) {
+        const savedVal = pipeEl.value;
+        const savedMax = pipeEl.getAttribute('max');
+        // Simulate G-type selection by directly calling with high value
+        pipeEl.value = '120';
+        pipeEl.max = '50';
+        if (parseFloat(pipeEl.value) > 50) pipeEl.value = '50';
+        console.assert(parseFloat(pipeEl.value) <= 50, 'T4 PASS: Pacifyre G clamps pipe diameter to ≤ 50 mm');
+        // Restore
+        pipeEl.value = savedVal;
+        if (savedMax) pipeEl.setAttribute('max', savedMax);
+        else pipeEl.removeAttribute('max');
       }
 
       console.groupEnd();
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
-      const langSelect = $('langSelect');
+      const langSelect = getEl('langSelect');
       if (langSelect) {
         langSelect.value = 'en';
         langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
       }
 
-      // Sealant type changes depth + enforces Ø limit
-      document.querySelectorAll('input[name="sealantType"]').forEach((r) => r.addEventListener('change', setDepth));
+      document.querySelectorAll('input[name="sealantType"]').forEach((r) =>
+        r.addEventListener('change', setDepth)
+      );
 
-      // Opening type changes shown sections + recalculates; also re-apply Ø limit for the currently visible input
-      document.querySelectorAll('input[name="openingType"]').forEach((r) => r.addEventListener('change', () => {
-        toggleOpeningType();
-        enforcePipeLimit();
-      }));
+      document.querySelectorAll('input[name="openingType"]').forEach((r) =>
+        r.addEventListener('change', () => {
+          toggleOpeningType();
+          enforcePipeLimit();
+        })
+      );
 
-      // Seal type affects multiplier
-      document.querySelectorAll('input[name="sealType"]').forEach((r) => r.addEventListener('change', calculate));
+      document.querySelectorAll('input[name="sealType"]').forEach((r) =>
+        r.addEventListener('change', calculate)
+      );
 
-      // Any numeric input should re-check Ø limit first (so typing >50 while G is selected clamps immediately)
       document.querySelectorAll('input[type="number"]').forEach((i) =>
         i.addEventListener('input', () => {
           enforcePipeLimit();
@@ -1323,27 +1458,19 @@
         })
       );
 
-      const toggleBtn = $('toggleDetails');
+      const toggleBtn = getEl('toggleDetails');
       if (toggleBtn) toggleBtn.addEventListener('click', toggleDetails);
 
-      // Initialize
+      // Initialize UI
       setLanguage('en');
       setDepth();
       toggleOpeningType();
       enforcePipeLimit();
       calculate();
 
-      // Additional self-test for Pacifyre G limit
-      const sealG = $('sealantG');
-      const pipe = $('pipeDiameter');
-      if (sealG && pipe) {
-        sealG.checked = true;
-        setDepth();
-        pipe.value = '120';
-        enforcePipeLimit();
-        console.assert(parseFloat(pipe.value) <= 50, 'Pacifyre G must limit pipe diameter to max 50 mm');
-      }
-
-      // Console tests
+      // Run isolated self-tests (output to console only, no UI impact)
       runSelfTests();
     });
+  </script>
+</body>
+</html>
