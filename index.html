@@ -566,14 +566,17 @@
         <!-- Rectangular opening -->
         <div class="subsection" id="rectangularSection" style="display: none">
           <h3 id="titleRectangular">▭ Rectangular Opening Parameters</h3>
+
           <div class="form-group">
             <label id="labelOpeningWidth">Opening Width (mm)</label>
             <input type="number" id="openingWidth" value="200" min="0" />
           </div>
+
           <div class="form-group">
             <label id="labelOpeningHeight">Opening Height (mm)</label>
             <input type="number" id="openingHeight" value="150" min="0" />
           </div>
+
           <div class="form-group">
             <label id="labelPipeDiameterRect">Pipe Diameter (mm)</label>
             <input type="number" id="pipeDiameterRect" value="100" min="0" />
@@ -582,6 +585,7 @@
               <span id="pipeLimitInfoTextRect">For Walraven Pacifyre® G, maximum pipe diameter is 50 mm.</span>
             </div>
           </div>
+
           <div class="form-group">
             <label id="labelInsulationRect">Insulation Thickness (mm)</label>
             <input type="number" id="insulationThicknessRect" value="30" min="0" />
@@ -1096,8 +1100,8 @@
 
         if (maxDiameter !== null) {
           input.max = '50';
-          // Clamp current value if needed
-          if (parseFloat(input.value) > 50) input.value = '50';
+          // Force default to 50 mm for Pacifyre G
+          input.value = '50';
         } else {
           input.removeAttribute('max');
         }
