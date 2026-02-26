@@ -471,6 +471,7 @@
             <option value="sk">🇸🇰 Slovenčina</option>
             <option value="pl">🇵🇱 Polski</option>
             <option value="nl">🇳🇱 Nederlands</option>
+            <option value="de">🇩🇪 Deutsch</option>
           </select>
         </div>
       </div>
@@ -1136,6 +1137,88 @@
           return `${count} doorvoeren × ${perOneMl} ml${mult}`;
         },
       },
+
+      de: {
+        langLabel: 'Sprache',
+        topBarText: 'Multinational mit Herz | Seit 1942',
+        appTitle: 'Walraven Pacifyre® Rechner',
+        heroTitle: '🔥 Walraven Pacifyre® Dichtstoff-Rechner',
+        heroSubtitle: 'Berechnung des Brandschutz-Dichtstoffverbrauchs für Wand- und Bodendurchführungen',
+
+        inputsTitle: 'Eingabeparameter',
+        resultsTitle: 'Berechnungsergebnisse',
+
+        labelSealantType: 'Dichtstofftyp',
+        sealantALabel: 'Walraven Pacifyre® A (10 mm)',
+        sealantGLabel: 'Walraven Pacifyre® G (25 mm)',
+        labelDepth: 'Fülltiefe (fest: A = 10 mm, G = 25 mm)',
+
+        labelOpeningType: 'Öffnungstyp',
+        labelCircular: 'Kreisförmig',
+        labelRectangular: 'Rechteckig',
+
+        titleCircular: '⭕ Parameter kreisförmige Öffnung',
+        labelPipeDiameter: 'Rohrdurchmesser (mm)',
+        labelInsulation: 'Dämmungsdicke (mm)',
+        labelAnnularGap: 'Ringspaltbreite (mm)',
+
+        pipeLimitInfoTitle: 'ℹ️ Hinweis:',
+        pipeLimitInfoText: 'Für Walraven Pacifyre® G beträgt der maximale Rohrdurchmesser 50 mm.',
+
+        circularOpeningLimitTitle: 'ℹ️ Hinweis:',
+        circularOpeningLimitText: (maxMm) => `Für Walraven Pacifyre® beträgt der maximale Öffnungsdurchmesser (Rohr + Dämmung + 2× Spalt) ${maxMm} mm.`,
+
+        rectWidthLimitTitle: 'ℹ️ Hinweis:',
+        rectWidthLimitText: 'Für Walraven Pacifyre® G beträgt die maximale Öffnungsbreite 250 mm.',
+        rectHeightLimitTitle: 'ℹ️ Hinweis:',
+        rectHeightLimitText: 'Für Walraven Pacifyre® G beträgt die maximale Öffnungshöhe 250 mm.',
+
+        titleRectangular: '▭ Parameter rechteckige Öffnung',
+        labelOpeningWidth: 'Öffnungsbreite (mm)',
+        labelOpeningHeight: 'Öffnungshöhe (mm)',
+        labelPipeDiameterRect: 'Rohrdurchmesser (mm)',
+        labelInsulationRect: 'Dämmungsdicke (mm)',
+
+        labelSealType: 'Abdichtungstyp',
+        labelSingle: 'Einseitig',
+        labelDouble: 'Beidseitig',
+
+        labelCount: 'Anzahl der Durchführungen',
+
+        calcTitleCircular: 'Zwischenberechnungen (kreisförmig)',
+        labelD2: 'Außendurchmesser mit Dämmung (d2)',
+        labelD3: 'Außendurchmesser mit Füllung (d3)',
+        labelAnnularArea: 'Ringfläche',
+
+        calcTitleRectangular: 'Zwischenberechnungen (rechteckig)',
+        labelOpeningVolume: 'Öffnungsvolumen (B×H×Tiefe)',
+        labelOccupiedVolume: 'Volumen Rohr + Dämmung',
+
+        rectWarningTitle: '⚠️ Warnung:',
+        rectWarningText:
+          'Rohr + Dämmung passen nicht in die Öffnung (Volumen übersteigt Öffnungsvolumen). Dichtstoffvolumen wird auf 0 gesetzt.',
+
+        labelVolumeOne: 'Volumen pro Durchführung',
+        labelTotalConsumption: '✅ Gesamtverbrauch Dichtstoff',
+        labelCartridges: '📦 Anzahl Kartuschen (300 ml)',
+
+        infoNote: 'ℹ️ Hinweis:',
+        infoText: 'Anzahl der Kartuschen wird aufgerundet.',
+
+        footerText: 'Brandschutzlösungen für Gebäude',
+        footerContact: 'Kontakt',
+        footerSupport: 'Technischer Support',
+
+        unitsPieces: 'Stk.',
+
+        detailsTitle: 'Berechnungsschritte',
+        showDetails: 'Berechnungsschritte anzeigen',
+        hideDetails: 'Berechnungsschritte ausblenden',
+        calcDetail: (count, perOneMl, sealType) => {
+          const mult = sealType === 'double' ? ' × 2 (beidseitig)' : ' (einseitig)';
+          return `${count} Durchführungen × ${perOneMl} ml${mult}`;
+        },
+      },
     };
 
     // ─────────────────────────────────────────────────────────────
@@ -1519,7 +1602,7 @@
     // If no match is found, fall back to 'en'.
     // ─────────────────────────────────────────────────────────────
     function detectBrowserLanguage() {
-      const supported = Object.keys(translations); // ['en','cs','sk','pl','nl']
+      const supported = Object.keys(translations); // ['en','cs','sk','pl','nl','de']
       const preferred = navigator.languages?.length ? navigator.languages : [navigator.language || 'en'];
       for (const lang of preferred) {
         const code = lang.slice(0, 2).toLowerCase();
